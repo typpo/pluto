@@ -4,14 +4,47 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>WebGL Earth</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 	<style>
-		body { margin: 0; overflow: hidden; background-color: #000; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #000;
+      font-family: 'proxima-nova',Helvetica,sans-serif;
+    }
 		.tm  { position: absolute; top: 10px; right: 10px; }
 		.webgl-error { font: 15px/30px monospace; text-align: center; color: #fff; margin: 50px; }
 		.webgl-error a { color: #fff; }
+    .top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background-color: black;
+      border-bottom: 1px solid #ccc;
+      z-index: 999999;
+      color: white;
+      line-height: 2.5;
+      text-align: center;
+    }
+
+    .title {
+      font-family: 'Open Sans', Helvetica, sans-serif;
+      font-weight: bold;
+      position:absolute;
+      top:0;
+      left: 20px ;
+    }
     </style>
 </head>
 <body>
+  <div class="top">
+    <span class="title">Pluto as we currently know it</span>
+    <span>
+    New Horizons reaches Pluto in July!  Check back over the next few months as scientists discover what Pluto looks like.
+    </span>
+  </div>
 	<div id="webgl"></div>
 	<script src="js/three.min.js"></script>
 	<script src="js/Detector.js"></script>

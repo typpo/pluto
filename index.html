@@ -29,6 +29,15 @@
       text-align: center;
     }
 
+    .top-sub {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      color: #aaa;
+      text-align: center;
+      width: 100%;
+    }
+
     .title {
       font-family: 'Open Sans', Helvetica, sans-serif;
       font-weight: bold;
@@ -45,10 +54,14 @@
     New Horizons reaches Pluto in July!  Check back over the next few months as scientists discover what Pluto looks like.
     </span>
   </div>
+  <div class="top-sub">
+    Time to flyby: <span id="timer"></span>
+  </div>
 	<div id="webgl"></div>
 	<script src="js/three.min.js"></script>
 	<script src="js/Detector.js"></script>
 	<script src="js/TrackballControls.js"></script>
-	<script src="js/earth.js"></script>
+	<script src="js/countdown.min.js"></script>
+	<script src="js/main.js"></script>
 </body>
 </html>

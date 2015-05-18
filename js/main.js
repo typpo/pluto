@@ -1,6 +1,4 @@
-// Created by Bjorn Sandvik - thematicmapping.org
 (function () {
-
 	var webglEl = document.getElementById('webgl');
 
 	if (!Detector.webgl) {
@@ -30,7 +28,7 @@
 	light.position.set(5,3,5);
 	scene.add(light);
 
-    var sphere = createSphere(radius, segments);
+  var sphere = createSphere(radius, segments);
 	sphere.rotation.y = rotation;
 	scene.add(sphere)
 
@@ -47,6 +45,8 @@
 
 	webglEl.appendChild(renderer.domElement);
 
+  startCountdown();
+
 	render();
 
 	function render() {
@@ -56,6 +56,13 @@
 		requestAnimationFrame(render);
 		renderer.render(scene, camera);
 	}
+
+  function startCountdown() {
+    setInterval(function() {
+      var time = countdown(new Date(2015, 7, 14, 11, 50) ).toString();
+      document.getElementById('timer').innerHTML = time;
+    }, 1000);
+  }
 
 	function createSphere(radius, segments) {
     var map = THREE.ImageUtils.loadTexture('images/pluto_art.png');
@@ -101,5 +108,4 @@
 			})
 		);
 	}
-
 }());

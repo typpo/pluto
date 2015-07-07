@@ -59,7 +59,7 @@
 
   function startCountdown() {
     setInterval(function() {
-      var time = countdown(new Date(2015, 7, 14, 11, 50) ).toString();
+      var time = countdown(new Date(2015, 6, 14, 11, 50) ).toString();
       document.getElementById('timer').innerHTML = time;
     }, 1000);
   }

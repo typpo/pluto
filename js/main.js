@@ -12,12 +12,12 @@
 	// Earth params
 	var radius   = 0.5,
 		segments = 32,
-		rotation = 6;
+		rotation = 80;
 
 	var scene = new THREE.Scene();
 
 	var camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
-	camera.position.z = 2;
+	camera.position.z = 5;
 
 	var renderer = new THREE.WebGLRenderer();
 	renderer.setSize(width, height);
@@ -42,6 +42,7 @@
 	scene.add(stars);
 
 	var controls = new THREE.TrackballControls(camera);
+  window.c = controls;
 
 	webglEl.appendChild(renderer.domElement);
 
@@ -65,7 +66,8 @@
   }
 
 	function createSphere(radius, segments) {
-    var map = THREE.ImageUtils.loadTexture('images/pluto_art.png');
+    //var map = THREE.ImageUtils.loadTexture('images/pluto_art.png');
+    var map = THREE.ImageUtils.loadTexture('images/pluto-bjorn-20150719-filled.png');
 		var mesh = new THREE.Mesh(
 			new THREE.SphereGeometry(radius, segments, segments),
 			new THREE.MeshPhongMaterial({

@@ -115,6 +115,9 @@
 	light.position.set(5,3,5);
 	scene.add(light);
 
+  var btnPrevElt = document.getElementById('btn-prev');
+  var btnNextElt = document.getElementById('btn-next');
+
   var sphere;
   var mapIndex = maps.length;   // Start at the most recent.
   function step(forwards) {
@@ -150,17 +153,17 @@
     scene.add(sphere)
 
     if (mapIndex == maps.length - 1) {
-      document.getElementById('btn-next').classList.add('inactive');
+      btnNextElt.classList.add('inactive');
       mapIndex = maps.length - 1;
     } else {
-      document.getElementById('btn-next').classList.remove('inactive');
+      btnNextElt.classList.remove('inactive');
     }
 
     if (mapIndex == 0) {
-      document.getElementById('btn-prev').classList.add('inactive');
+      btnPrevElt.classList.add('inactive');
       mapIndex = 0;
     } else {
-      document.getElementById('btn-prev').classList.remove('inactive');
+      btnPrevElt.classList.remove('inactive');
     }
 
     clearSelection();   // Sometimes part of the page can be selected on fast click.
@@ -184,11 +187,34 @@
     }
   }, false);
 
-  document.getElementById('btn-prev').onclick = function() {
+  btnPrevElt.onclick = function() {
     step(false);
   };
-  document.getElementById('btn-next').onclick = function() {
+  btnNextElt.onclick = function() {
     step(true);
+  };
+
+  var btnPlayElt = document.getElementById('btn-play');
+  var btnPauseElt = document.getElementById('btn-pause');
+
+  var playInterval;
+  btnPlayElt.onclick = function() {
+    (function play() {
+      if (mapIndex == maps.length - 1) {
+        mapIndex = -1;
+      }
+      step(true);
+      btnPlayElt.style.display = 'none';
+      btnPauseElt.style.display = '';
+
+      playInterval = setTimeout(play, 1000);
+    })();
+  };
+
+  btnPauseElt.onclick = function() {
+    clearInterval(playInterval);
+    btnPlayElt.style.display = '';
+    btnPauseElt.style.display = 'none';
   };
 
   var selectHtml = '';

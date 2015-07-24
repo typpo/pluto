@@ -123,6 +123,13 @@
       height: auto;
     }
 
+    .no_selection {
+      -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+      -moz-user-select: none; /* mozilla browsers */
+      -khtml-user-select: none; /* webkit (konqueror) browsers */
+      -ms-user-select: none; /* IE10+ */
+    }
+
     @media screen and (max-width: 850px) {
       .top, .top-sub {
         font-size: 12px;
@@ -153,8 +160,8 @@
   </div>
 -->
   <div id="controls">
-    <span id="btn-prev" class="button arrow fa fa-arrow-left" style="display: none;"></span>
-    <span id="btn-next" class="button arrow fa fa-arrow-right" style="display: none;"></span>
+    <span id="btn-prev" class="button arrow fa fa-arrow-left no-selection" style="display: none;"></span>
+    <span id="btn-next" class="button arrow fa fa-arrow-right no-selection" style="display: none;"></span>
   </div>
   <div id="jump-to">
 

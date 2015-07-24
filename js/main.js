@@ -162,6 +162,8 @@
     } else {
       document.getElementById('btn-prev').style.display = '';
     }
+
+    clearSelection();   // Sometimes part of the page can be selected on fast click.
   }
 
   step(false);
@@ -302,4 +304,13 @@
 			})
 		);
 	}
+
+  function clearSelection() {
+    if(document.selection && document.selection.empty) {
+      document.selection.empty();
+    } else if(window.getSelection) {
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+    }
+  }
 }());

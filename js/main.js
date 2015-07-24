@@ -19,7 +19,7 @@
       desc: 'Texture courtesy of NASA and Marc W. Buie (Southwest Research Institute).',
     },
     {
-      mappedBy: 'Hubble Space Telescope',
+      mappedBy: 'Hubble Space Telescope (Advanced Camera for Surveys)',
       path: 'pluto_all-long0.png',
       date: 'February 4, 2010',
       desc: 'Texture courtesy of Marc W. Buie (Southwest Research Institute).',

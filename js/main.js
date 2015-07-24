@@ -157,6 +157,11 @@
     step(true);
   };
 
+  var simulationClicked = false;
+  webglEl.addEventListener( 'mousedown', function() {
+    simulationClicked = true;
+  }, false);
+
   setTimeout(function preloadTextures() {
     for (var i=0; i < maps.length; i++) {
       var im = new Image()
@@ -189,7 +194,7 @@
 
 	function render() {
 		controls.update();
-    if (sphere) {
+    if (sphere && !simulationClicked) {
       sphere.rotation.y += 0.0005;
     }
 		//clouds.rotation.y += 0.0005;

@@ -4,56 +4,67 @@
       mappedBy: 'Hubble Space Telescope',
       path: 'pluto_all-long0.png',
       date: 'May 18, 2005',
+      desc: 'Texture courtesy of Marc W. Buie (Southwest Research Institute).',
     },
     {
       mappedBy: 'New Horizons',
       path: 'pluto-bjorn-20150625.png',
       date: 'June 25, 2015',
+      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
     },
     {
       mappedBy: 'New Horizons',
       path: 'pluto-bjorn-20150703.png',
       date: 'July 3, 2015',
+      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
     },
     {
       mappedBy: 'New Horizons',
       path: 'pluto-bjorn-20150707.png',
       date: 'July 7, 2015',
+      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
     },
     {
       mappedBy: 'New Horizons',
       path: 'pluto-bjorn-20150709.png',
       date: 'July 9, 2015',
+      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
     },
     {
       mappedBy: 'New Horizons',
       path: 'pluto-bjorn-20150711.0.png',
       date: 'July 11, 2015',
+      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
     },
     {
       mappedBy: 'New Horizons',
       path: 'pluto-bjorn-20150711.png',
       date: 'July 11, 2015 evening',
+      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
     },
     {
       mappedBy: 'New Horizons',
       path: 'pluto-bjorn-20150712.png',
       date: 'July 12, 2015',
+      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
     },
     {
       mappedBy: 'New Horizons',
       path: 'pluto-bjorn-20150714.png',
       date: 'July 14, 2015',
+      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
     },
     {
       mappedBy: 'New Horizons',
       path: 'pluto-bjorn-20150719.png',
       date: 'July 19, 2015',
+      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
     },
     {
       mappedBy: 'New Horizons',
       path: 'pluto-bjorn-20150719-filled.png',
       date: 'July 19, 2015',
+      desc: 'Texture courtesy of Björn Jónsson, images from NASA. Area around south pole added artificially.',
     }
   ];
 
@@ -103,6 +114,7 @@
     // Details setup.
     document.getElementById('mapped-by').innerHTML = timestep.mappedBy;
     document.getElementById('mapped-when').innerHTML = timestep.date;
+    document.getElementById('credit').innerHTML = timestep.desc;
 
     // Sphere setup.
     var oldRotation = rotation;

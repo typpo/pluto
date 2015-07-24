@@ -150,17 +150,17 @@
     scene.add(sphere)
 
     if (mapIndex == maps.length - 1) {
-      document.getElementById('btn-next').style.display = 'none';
+      document.getElementById('btn-next').classList.add('inactive');
       mapIndex = maps.length - 1;
     } else {
-      document.getElementById('btn-next').style.display = '';
+      document.getElementById('btn-next').classList.remove('inactive');
     }
 
     if (mapIndex == 0) {
-      document.getElementById('btn-prev').style.display = 'none';
+      document.getElementById('btn-prev').classList.add('inactive');
       mapIndex = 0;
     } else {
-      document.getElementById('btn-prev').style.display = '';
+      document.getElementById('btn-prev').classList.remove('inactive');
     }
 
     clearSelection();   // Sometimes part of the page can be selected on fast click.

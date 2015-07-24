@@ -117,6 +117,10 @@
       padding: 15px;
     }
 
+    .button.arrow.inactive {
+      color: #333;
+    }
+
     span.button:hover {
       background-color: #303030;
     }
@@ -180,8 +184,10 @@
   </div>
 -->
   <div id="controls">
-    <span id="btn-prev" class="button arrow fa fa-arrow-left no-selection" style="display: none;"></span>
-    <span id="btn-next" class="button arrow fa fa-arrow-right no-selection" style="display: none;"></span>
+    <span id="btn-prev" class="button arrow fa fa-arrow-left no-selection"></span>
+    <span id="btn-play" class="button arrow fa fa-play no-selection"></span>
+    <span id="btn-pause" class="button arrow fa fa-pause no-selection" style="display: none;"></span>
+    <span id="btn-next" class="button arrow fa fa-arrow-right inactive no-selection"></span>
   </div>
   <div id="jump-to-container">
     <span>View on date... </span>

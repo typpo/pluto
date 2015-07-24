@@ -20,6 +20,7 @@
 
 	<title>Pluto Globe</title>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<style>
     body {
       margin: 0;
@@ -78,7 +79,7 @@
     #controls {
       font-size: 12px;
       position: absolute;
-      top: 50px;
+      top: 100px;
       color: #eee;
       text-align: center;
       width: 100%;
@@ -87,9 +88,8 @@
     #controls .button {
       background-color: #202020;
       cursor: pointer;
-      padding: 5px;
+      padding: 15px;
       border-radius: 5px;
-      line-height: 2.5;
     }
 
     #controls .button.arrow {
@@ -153,8 +153,8 @@
   </div>
 -->
   <div id="controls">
-    <span id="btn-prev" class="button arrow" style="padding-right: 8px; display: none;">&#x21da;</span>
-    <span id="btn-next" class="button arrow" style="padding-left: 8px; display: none;">&#x21db;</span>
+    <span id="btn-prev" class="button arrow fa fa-arrow-left" style="display: none;"></span>
+    <span id="btn-next" class="button arrow fa fa-arrow-right" style="display: none;"></span>
   </div>
   <div id="jump-to">
 

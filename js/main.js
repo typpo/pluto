@@ -1,6 +1,12 @@
 (function () {
   var maps = [
     {
+      mappedBy: 'Clyde Tombaugh',
+      path: null,
+      date: 'January 29, 1930',
+      desc: '',
+    },
+    {
       mappedBy: 'Hubble Space Telescope (ESA Faint Object Camera)',
       path: 'hs-2010-06-f-full_jpg.jpg',
       date: '1994',
@@ -286,13 +292,17 @@
     //var map = THREE.ImageUtils.loadTexture('images/pluto_art.png');
     //var map = THREE.ImageUtils.loadTexture('images/pluto-bjorn-20150719-filled.png');
     //var map = THREE.ImageUtils.loadTexture('images/pluto-bjorn-20150625.png');
-    var map = THREE.ImageUtils.loadTexture('images/' + texturePath);
+    var map;
+    if (texturePath) {
+      map = THREE.ImageUtils.loadTexture('images/' + texturePath);
+    }
 
 		var mesh = new THREE.Mesh(
 			new THREE.SphereGeometry(radius, segments, segments),
 			new THREE.MeshPhongMaterial({
 				//map:         THREE.ImageUtils.loadTexture('images/2_no_clouds_4k.jpg'),
 				map:         map,
+        "color": 0xbbbbbb, "specular": 0x111111, "shininess": 1,
         /*
         "color": 0xbbbbbb, "specular": 0x111111, "shininess": 1,
 				bumpMap:     map,

@@ -187,6 +187,19 @@
     step(true);
   };
 
+  var selectHtml = '';
+  var jumpToElt = document.getElementById('jump-to');
+  for (var i=maps.length-1; i > -1; i--) {
+    var timestep = maps[i];
+    selectHtml += '<option value="' + i + '">' + timestep.date + '</option>';
+  }
+  jumpToElt.value = maps.length - 1;
+  jumpToElt.innerHTML = selectHtml;
+  jumpToElt.onchange = function() {
+    mapIndex = jumpToElt.value - 1;
+    step(true);
+  };
+
   var simulationClicked = false;
   webglEl.addEventListener( 'mousedown', function() {
     simulationClicked = true;

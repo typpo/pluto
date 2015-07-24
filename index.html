@@ -77,26 +77,39 @@
     }
 
     #controls {
-      font-size: 12px;
       position: absolute;
       top: 100px;
-      color: #eee;
       text-align: center;
       width: 100%;
     }
 
-    #controls .button {
+    #jump-to-container {
+      font-size: 16px;
+      position: absolute;
+      top: 60px;
+      right: 30px;
+      color: #eee;
+      text-align: right;
+    }
+
+    #jump-to-container select {
+      font-size: 16px;
+      color: #eee;
+    }
+
+    .button {
       background-color: #202020;
       cursor: pointer;
-      padding: 15px;
       border-radius: 5px;
     }
 
-    #controls .button.arrow {
+    .button.arrow {
+      color: #eee;
       font-size: 40px;
+      padding: 15px;
     }
 
-    #controls span:hover {
+    span.button:hover {
       background-color: #303030;
     }
 
@@ -162,8 +175,10 @@
     <span id="btn-prev" class="button arrow fa fa-arrow-left no-selection" style="display: none;"></span>
     <span id="btn-next" class="button arrow fa fa-arrow-right no-selection" style="display: none;"></span>
   </div>
-  <div id="jump-to">
-
+  <div id="jump-to-container">
+    <span>View on date... </span>
+    <select id="jump-to" class="button">
+    </select>
   </div>
   <div class="bottom-left">
     <div class="title">Pluto as mapped by <span id="mapped-by">New Horizons</span> on <span id="mapped-when"></span></div>

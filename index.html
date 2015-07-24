@@ -83,6 +83,14 @@
       width: 100%;
     }
 
+    #instructions {
+      font-size: 12px;
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
+      color: #eee;
+    }
+
     #jump-to-container {
       font-size: 16px;
       position: absolute;
@@ -147,7 +155,7 @@
         font-size: 12px;
       }
 
-      .social-container {
+      #instructions, .social-container {
         display: none;
       }
     }
@@ -183,6 +191,9 @@
   <div class="bottom-left">
     <div class="title">Pluto as mapped by <span id="mapped-by">New Horizons</span> on <span id="mapped-when"></span></div>
     <div id="credit" class="credit">Textures courtesy of Björn Jónsson, Marc W. Buie (Southwest Research Institute), and NASA.</div>
+  </div>
+  <div id="instructions">
+    Use the ← and → keys to step through time.
   </div>
 	<div id="webgl"></div>
 	<script src="js/three.min.js"></script>

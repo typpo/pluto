@@ -45,6 +45,7 @@
     .title {
       font-family: 'Open Sans', Helvetica, sans-serif;
       font-weight: bold;
+      font-size: 30px;
     }
 
     .credit {
@@ -54,9 +55,35 @@
 
     .bottom-left {
       position:absolute;
-      bottom:20px;
-      left: 20px ;
+      bottom: 40px;
+      left: 40px ;
       color: white;
+    }
+
+    #controls {
+      font-size: 12px;
+      position: absolute;
+      top: 50px;
+      color: #eee;
+      text-align: center;
+      width: 100%;
+    }
+
+    #controls .button {
+      background-color: #202020;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+      line-height: 2.5;
+    }
+
+    #controls .button.arrow {
+      font-size: 60px;
+      font-weight: bold;
+    }
+
+    #controls span:hover {
+      background-color: #303030;
     }
 
     @media screen and (max-width: 850px) {
@@ -68,24 +95,28 @@
 </head>
 <body>
   <div class="bottom-left">
-    <div class="title">Pluto as mapped by New Horizons</div>
-<!--
-    <div class="credit">Texture courtesy of Marc W. Buie, Southwest Research Institute</div>
--->
-    <div class="credit">Texture courtesy of Björn Jónsson and NASA</div>
+    <div class="title">Pluto as mapped by <span id="mapped-by">New Horizons</span> on <span id="mapped-when"></span></div>
+    <div class="credit">Textures courtesy of Björn Jónsson, Marc W. Buie (Southwest Research Institute), and NASA</div>
   </div>
   <div class="top">
     <span>
-    New Horizons reaches Pluto in July!  Check back over the next few months as scientists discover what Pluto looks like (<a href="http://eepurl.com/bnWkg9" target="_blank">get notified</a>).
+    Step through time to see how New Horizons changed our view of Pluto.
     </span>
   </div>
+  <div id="controls">
+    <span id="btn-prev" class="button arrow">⇐</span>
+    <span id="btn-next" class="button arrow">⇒</span>
+  </div>
+<!--
   <div class="top-sub">
     Time since flyby: <span id="timer"></span>
   </div>
+-->
 	<div id="webgl"></div>
 	<script src="js/three.min.js"></script>
 	<script src="js/Detector.js"></script>
-	<script src="js/TrackballControls.js"></script>
+	<script src="js/OrbitControls.js"></script>
+  <script src="js/THREEx.WindowResize.js"></script>
 	<script src="js/countdown.min.js"></script>
 	<script src="js/main.js"></script>
 <!-- start Mixpanel --><script type="text/javascript">(function(d,c){var a,b,g,e;a=d.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===d.location.protocol?"https:":"http:")+'//api.mixpanel.com/site_media/js/api/mixpanel.2.js';b=d.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b);c._i=[];c.init=function(a,d,f){var b=c;"undefined"!==typeof f?b=c[f]=[]:f="mixpanel";g="disable track track_pageview track_links track_forms register register_once unregister identify name_tag set_config".split(" ");

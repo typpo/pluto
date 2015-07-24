@@ -1,4 +1,62 @@
 (function () {
+  var maps = [
+    {
+      mappedBy: 'Hubble Space Telescope',
+      path: 'pluto_all-long0.png',
+      date: 'May 18, 2005',
+    },
+    {
+      mappedBy: 'New Horizons',
+      path: 'pluto-bjorn-20150625.png',
+      date: 'June 25, 2015',
+    },
+    {
+      mappedBy: 'New Horizons',
+      path: 'pluto-bjorn-20150703.png',
+      date: 'July 3, 2015',
+    },
+    {
+      mappedBy: 'New Horizons',
+      path: 'pluto-bjorn-20150707.png',
+      date: 'July 7, 2015',
+    },
+    {
+      mappedBy: 'New Horizons',
+      path: 'pluto-bjorn-20150709.png',
+      date: 'July 9, 2015',
+    },
+    {
+      mappedBy: 'New Horizons',
+      path: 'pluto-bjorn-20150711.0.png',
+      date: 'July 11, 2015',
+    },
+    {
+      mappedBy: 'New Horizons',
+      path: 'pluto-bjorn-20150711.png',
+      date: 'July 11, 2015 evening',
+    },
+    {
+      mappedBy: 'New Horizons',
+      path: 'pluto-bjorn-20150712.png',
+      date: 'July 12, 2015',
+    },
+    {
+      mappedBy: 'New Horizons',
+      path: 'pluto-bjorn-20150714.png',
+      date: 'July 14, 2015',
+    },
+    {
+      mappedBy: 'New Horizons',
+      path: 'pluto-bjorn-20150719.png',
+      date: 'July 19, 2015',
+    },
+    {
+      mappedBy: 'New Horizons',
+      path: 'pluto-bjorn-20150719-filled.png',
+      date: 'July 19, 2015',
+    }
+  ];
+
 	var webglEl = document.getElementById('webgl');
 
 	if (!Detector.webgl) {
@@ -28,9 +86,83 @@
 	light.position.set(5,3,5);
 	scene.add(light);
 
-  var sphere = createSphere(radius, segments);
-	sphere.rotation.y = rotation;
-	scene.add(sphere)
+  var sphere;
+  var mapIndex = maps.length;   // Start at the most recent.
+  function step(forwards) {
+    if (forwards) {
+      mapIndex++;
+    } else {
+      mapIndex--;
+    }
+
+    mapIndex = Math.min(maps.length - 1, mapIndex);
+    mapIndex = Math.max(0, mapIndex);
+
+    var timestep = maps[mapIndex];
+
+    // Details setup.
+    document.getElementById('mapped-by').innerHTML = timestep.mappedBy;
+    document.getElementById('mapped-when').innerHTML = timestep.date;
+
+    // Sphere setup.
+    var oldRotation = rotation;
+    if (sphere) {
+      oldRotation = sphere.rotation.y;
+      scene.remove(sphere);
+    }
+    sphere = createSphere(timestep.path, radius, segments);
+    if (mapIndex == maps.length) {
+      mapIndex = 0;
+    }
+    sphere.rotation.y = oldRotation;
+    scene.add(sphere)
+
+    if (mapIndex == maps.length - 1) {
+      document.getElementById('btn-next').style.display = 'none';
+      mapIndex = maps.length - 1;
+    } else {
+      document.getElementById('btn-next').style.display = '';
+    }
+
+    if (mapIndex == 0) {
+      document.getElementById('btn-prev').style.display = 'none';
+      mapIndex = 0;
+    } else {
+      document.getElementById('btn-prev').style.display = '';
+    }
+  }
+
+  step(false);
+
+  var t = -1;
+  document.addEventListener('keydown', function(e) {
+    var now = new Date().getTime();
+    if (now - t > 150) {
+      // Left and right keys are 37 and 39 respectively, they step through the
+      // select.
+      var select = document.getElementById('years-ago');
+      if (e.keyCode == 37) {
+        step(false);
+      } else if (e.keyCode == 39) {
+        step(true);
+      }
+      t = now;
+    }
+  }, false);
+
+  document.getElementById('btn-prev').onclick = function() {
+    step(false);
+  };
+  document.getElementById('btn-next').onclick = function() {
+    step(true);
+  };
+
+  setTimeout(function preloadTextures() {
+    for (var i=0; i < maps.length; i++) {
+      var im = new Image()
+      im.src = 'images/' + maps[i].path;
+    }
+  }, 3000);
 
   /*
     var clouds = createClouds(radius, segments);
@@ -41,18 +173,25 @@
 	var stars = createStars(90, 64);
 	scene.add(stars);
 
-	var controls = new THREE.TrackballControls(camera);
-  window.c = controls;
+  var controls = new THREE.OrbitControls(camera, webglEl);
+  controls.minDistance = 1;
+  controls.maxDistance = 20;
+  controls.noKeys = true;
+  controls.rotateSpeed = 1.4;
+
+  THREEx.WindowResize(renderer, camera);
 
 	webglEl.appendChild(renderer.domElement);
 
-  startCountdown();
+  //startCountdown();
 
 	render();
 
 	function render() {
 		controls.update();
-		sphere.rotation.y += 0.0005;
+    if (sphere) {
+      sphere.rotation.y += 0.0005;
+    }
 		//clouds.rotation.y += 0.0005;
 		requestAnimationFrame(render);
 		renderer.render(scene, camera);
@@ -65,9 +204,12 @@
     }, 1000);
   }
 
-	function createSphere(radius, segments) {
+	function createSphere(texturePath, radius, segments) {
     //var map = THREE.ImageUtils.loadTexture('images/pluto_art.png');
-    var map = THREE.ImageUtils.loadTexture('images/pluto-bjorn-20150719-filled.png');
+    //var map = THREE.ImageUtils.loadTexture('images/pluto-bjorn-20150719-filled.png');
+    //var map = THREE.ImageUtils.loadTexture('images/pluto-bjorn-20150625.png');
+    var map = THREE.ImageUtils.loadTexture('images/' + texturePath);
+
 		var mesh = new THREE.Mesh(
 			new THREE.SphereGeometry(radius, segments, segments),
 			new THREE.MeshPhongMaterial({

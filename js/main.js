@@ -92,34 +92,34 @@
     }
   ];
 
-	var webglEl = document.getElementById('webgl');
+  var webglEl = document.getElementById('webgl');
 
-	if (!Detector.webgl) {
-		Detector.addGetWebGLMessage(webglEl);
-		return;
-	}
+  if (!Detector.webgl) {
+    Detector.addGetWebGLMessage(webglEl);
+    return;
+  }
 
-	var width  = window.innerWidth,
-		height = window.innerHeight;
+  var width  = window.innerWidth,
+    height = window.innerHeight;
 
-	// Earth params
-	var radius   = 0.5,
-		segments = 32,
-		rotation = 80;
+  // Earth params
+  var radius   = 0.5,
+    segments = 32,
+    rotation = 80;
 
-	var scene = new THREE.Scene();
+  var scene = new THREE.Scene();
 
-	var camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
-	camera.position.z = 5;
+  var camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
+  camera.position.z = 5;
 
-	var renderer = new THREE.WebGLRenderer();
-	renderer.setSize(width, height);
+  var renderer = new THREE.WebGLRenderer();
+  renderer.setSize(width, height);
 
-	scene.add(new THREE.AmbientLight(0x333333));
+  scene.add(new THREE.AmbientLight(0x333333));
 
-	var light = new THREE.DirectionalLight(0xffffff, 1);
-	light.position.set(5,3,5);
-	scene.add(light);
+  var light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(5,3,5);
+  scene.add(light);
 
   var btnPrevElt = document.getElementById('btn-prev');
   var btnNextElt = document.getElementById('btn-next');
@@ -250,12 +250,12 @@
 
   /*
     var clouds = createClouds(radius, segments);
-	clouds.rotation.y = rotation;
-	scene.add(clouds)
+  clouds.rotation.y = rotation;
+  scene.add(clouds)
  */
 
-	var stars = createStars(90, 64);
-	scene.add(stars);
+  var stars = createStars(90, 64);
+  scene.add(stars);
 
   var controls = new THREE.OrbitControls(camera, webglEl);
   controls.minDistance = 1;
@@ -265,21 +265,21 @@
 
   THREEx.WindowResize(renderer, camera);
 
-	webglEl.appendChild(renderer.domElement);
+  webglEl.appendChild(renderer.domElement);
 
   //startCountdown();
 
-	render();
+  render();
 
-	function render() {
-		controls.update();
+  function render() {
+    controls.update();
     if (sphere && !simulationClicked) {
       sphere.rotation.y += 0.0005;
     }
-		//clouds.rotation.y += 0.0005;
-		requestAnimationFrame(render);
-		renderer.render(scene, camera);
-	}
+    //clouds.rotation.y += 0.0005;
+    requestAnimationFrame(render);
+    renderer.render(scene, camera);
+  }
 
   function startCountdown() {
     setInterval(function() {
@@ -288,7 +288,7 @@
     }, 1000);
   }
 
-	function createSphere(texturePath, radius, segments) {
+  function createSphere(texturePath, radius, segments) {
     //var map = THREE.ImageUtils.loadTexture('images/pluto_art.png');
     //var map = THREE.ImageUtils.loadTexture('images/pluto-bjorn-20150719-filled.png');
     //var map = THREE.ImageUtils.loadTexture('images/pluto-bjorn-20150625.png');
@@ -297,49 +297,49 @@
       map = THREE.ImageUtils.loadTexture('images/' + texturePath);
     }
 
-		var mesh = new THREE.Mesh(
-			new THREE.SphereGeometry(radius, segments, segments),
-			new THREE.MeshPhongMaterial({
-				//map:         THREE.ImageUtils.loadTexture('images/2_no_clouds_4k.jpg'),
-				map:         map,
+    var mesh = new THREE.Mesh(
+      new THREE.SphereGeometry(radius, segments, segments),
+      new THREE.MeshPhongMaterial({
+        //map:         THREE.ImageUtils.loadTexture('images/2_no_clouds_4k.jpg'),
+        map:         map,
         "color": 0xbbbbbb, "specular": 0x111111, "shininess": 1,
         /*
         "color": 0xbbbbbb, "specular": 0x111111, "shininess": 1,
-				bumpMap:     map,
-				bumpScale:   0.02,
-				specularMap: map,
+        bumpMap:     map,
+        bumpScale:   0.02,
+        specularMap: map,
        */
-				//specular:    new THREE.Color('grey')
+        //specular:    new THREE.Color('grey')
         /*
-				bumpMap:     THREE.ImageUtils.loadTexture('images/elev_bump_4k.jpg'),
-				bumpScale:   0.005,
-				specularMap: THREE.ImageUtils.loadTexture('images/water_4k.png'),
-				specular:    new THREE.Color('grey')
+        bumpMap:     THREE.ImageUtils.loadTexture('images/elev_bump_4k.jpg'),
+        bumpScale:   0.005,
+        specularMap: THREE.ImageUtils.loadTexture('images/water_4k.png'),
+        specular:    new THREE.Color('grey')
         */
-			})
-		);
+      })
+    );
     return mesh;
-	}
+  }
 
-	function createClouds(radius, segments) {
-		return new THREE.Mesh(
-			new THREE.SphereGeometry(radius + 0.003, segments, segments),
-			new THREE.MeshPhongMaterial({
-				map:         THREE.ImageUtils.loadTexture('images/fair_clouds_4k.png'),
-				transparent: true
-			})
-		);
-	}
+  function createClouds(radius, segments) {
+    return new THREE.Mesh(
+      new THREE.SphereGeometry(radius + 0.003, segments, segments),
+      new THREE.MeshPhongMaterial({
+        map:         THREE.ImageUtils.loadTexture('images/fair_clouds_4k.png'),
+        transparent: true
+      })
+    );
+  }
 
-	function createStars(radius, segments) {
-		return new THREE.Mesh(
-			new THREE.SphereGeometry(radius, segments, segments),
-			new THREE.MeshBasicMaterial({
-				map:  THREE.ImageUtils.loadTexture('images/galaxy_starfield.png'),
-				side: THREE.BackSide
-			})
-		);
-	}
+  function createStars(radius, segments) {
+    return new THREE.Mesh(
+      new THREE.SphereGeometry(radius, segments, segments),
+      new THREE.MeshBasicMaterial({
+        map:  THREE.ImageUtils.loadTexture('images/galaxy_starfield.png'),
+        side: THREE.BackSide
+      })
+    );
+  }
 
   function clearSelection() {
     if(document.selection && document.selection.empty) {

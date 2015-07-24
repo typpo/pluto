@@ -60,7 +60,7 @@
 
   function startCountdown() {
     setInterval(function() {
-      var time = countdown(new Date(Date.UTC(2015, 6, 14, 23, 45)) ).toString();
+      var time = countdown(new Date(Date.UTC(2015, 6, 14, 11, 49)) ).toString();
       document.getElementById('timer').innerHTML = time;
     }, 1000);
   }

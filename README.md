@@ -6,11 +6,11 @@ You can start a static server with the following: `python -m SimpleHTTPServer`
 
 ## Assorted references
 
-Found Hubble pictures at: https://www.nasa.gov/image-feature/goddard/views-of-pluto-through-the-years
+Compilation of Pluto images over time: https://www.nasa.gov/image-feature/goddard/views-of-pluto-through-the-years
 
 Mark Buie's pluto maps: http://www.boulder.swri.edu/~buie/pluto/plutomap1.html
 
-Other Pluto textures at: http://www.mmedia.is/bjj/,
+Many Pluto and other planet textures from Bjorn Jonsson: http://www.mmedia.is/bjj/
 
 Pluto images: http://pluto.jhuapl.edu/soc/Pluto-Encounter/index.php?page=1 / https://twitter.com/bjorn_jons
 

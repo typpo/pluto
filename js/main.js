@@ -28,7 +28,7 @@
       mappedBy: 'Hubble Space Telescope (Advanced Camera for Surveys)',
       path: 'pluto_all-long0.png',
       date: 'February 4, 2010',
-      desc: 'Texture courtesy of Marc W. Buie (Southwest Research Institute).',
+      desc: 'Texture courtesy of Marc W. Buie (Southwest Research Institute). Area around poles added artificially',
     },
     {
       mappedBy: 'New Horizons',

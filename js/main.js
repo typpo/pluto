@@ -1,9 +1,27 @@
 (function () {
   var maps = [
     {
+      mappedBy: 'Hubble Space Telescope (ESA Faint Object Camera)',
+      path: 'hs-2010-06-f-full_jpg.jpg',
+      date: '1994',
+      desc: 'Texture courtesy of NASA and Marc W. Buie (Southwest Research Institute).',
+    },
+    {
+      mappedBy: 'Hubble Space Telescope (ESA Faint Object Camera)',
+      path: 'hs-1996-09-c-full_jpg.jpg',
+      date: 'March 7, 1996',
+      desc: 'Texture courtesy of NASA.',
+    },
+    {
+      mappedBy: 'Hubble Space Telescope (Advanced Camera for Surveys)',
+      path: 'hs-2010-06-g-full_jpg.jpg',
+      date: '2002-2003',
+      desc: 'Texture courtesy of NASA and Marc W. Buie (Southwest Research Institute).',
+    },
+    {
       mappedBy: 'Hubble Space Telescope',
       path: 'pluto_all-long0.png',
-      date: 'May 18, 2005',
+      date: 'February 4, 2010',
       desc: 'Texture courtesy of Marc W. Buie (Southwest Research Institute).',
     },
     {

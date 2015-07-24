@@ -127,6 +127,8 @@
     mapIndex = Math.min(maps.length - 1, mapIndex);
     mapIndex = Math.max(0, mapIndex);
 
+    document.getElementById('jump-to').value = mapIndex + '';
+
     var timestep = maps[mapIndex];
 
     // Details setup.

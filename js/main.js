@@ -8,7 +8,7 @@
     },
     {
       mappedBy: 'Hubble Space Telescope (ESA Faint Object Camera)',
-      path: 'hs-2010-06-f-full_jpg.jpg',
+      path: 'hs-2010-06-f-full_jpg-long0.jpg',
       date: '1994',
       desc: 'Texture courtesy of NASA and Marc W. Buie (Southwest Research Institute).',
     },
@@ -20,13 +20,13 @@
     },
     {
       mappedBy: 'Hubble Space Telescope (Advanced Camera for Surveys)',
-      path: 'hs-2010-06-g-full_jpg.jpg',
+      path: 'hs-2010-06-g-full_jpg-long0.jpg',
       date: '2002-2003',
       desc: 'Texture courtesy of NASA and Marc W. Buie (Southwest Research Institute).',
     },
     {
       mappedBy: 'Hubble Space Telescope (Advanced Camera for Surveys)',
-      path: 'pluto_all-long0.png',
+      path: 'pluto_all-flipped_vertically_and_adjusted.png',
       date: 'February 4, 2010',
       desc: 'Texture courtesy of Marc W. Buie (Southwest Research Institute). Area around poles added artificially',
     },

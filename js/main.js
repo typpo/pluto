@@ -315,9 +315,6 @@
   }
 
   function createSphere(texturePath, radius, segments) {
-    //var map = THREE.ImageUtils.loadTexture('images/pluto_art.png');
-    //var map = THREE.ImageUtils.loadTexture('images/pluto-bjorn-20150719-filled.png');
-    //var map = THREE.ImageUtils.loadTexture('images/pluto-bjorn-20150625.png');
     var map;
     if (texturePath) {
       map = THREE.ImageUtils.loadTexture('images/' + texturePath);
@@ -392,9 +389,8 @@
     var mesh1 = new THREE.Mesh(
         new THREE.PlaneGeometry(canvas1.width, canvas1.height),
         material1);
-    mesh1.position.set(0,50,0);
+    mesh1.position.set(200,520,200);
     scene.add(mesh1);
-
   }
   createText();
 }());

@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   var maps = [
     {
       mappedBy: 'Clyde Tombaugh',
@@ -113,6 +114,8 @@
     segments = 32,
     rotation = 80;
 
+  var rotationSpeed = 0.0005;
+
   var scene = new THREE.Scene();
 
   var camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
@@ -207,6 +210,7 @@
     step(true);
   };
 
+  // Play/pause logic
   var btnPlayElt = document.getElementById('btn-play');
   var btnPauseElt = document.getElementById('btn-pause');
 
@@ -230,6 +234,21 @@
     btnPauseElt.style.display = 'none';
   };
 
+  // Rotate logic
+  var btnRotate = document.getElementById('btn-rotate');
+  var rotatingFast = false;
+  btnRotate.onclick = function() {
+    if (rotatingFast) {
+      rotationSpeed = 0;
+      this.innerHTML = 'Rotate globe';
+    } else {
+      rotationSpeed = 0.01;
+      this.innerHTML = 'Stop rotation';
+    }
+    rotatingFast = !rotatingFast;
+  };
+
+  // Select logic
   var selectHtml = '';
   var jumpToElt = document.getElementById('jump-to');
   for (var i=maps.length-1; i > -1; i--) {
@@ -243,9 +262,8 @@
     step(true);
   };
 
-  var simulationClicked = false;
   webglEl.addEventListener( 'mousedown', function() {
-    simulationClicked = true;
+    rotationSpeed = 0;
   }, false);
 
   setTimeout(function preloadTextures() {
@@ -280,8 +298,8 @@
 
   function render() {
     controls.update();
-    if (sphere && !simulationClicked) {
-      sphere.rotation.y += 0.0005;
+    if (sphere) {
+      sphere.rotation.y += rotationSpeed;
     }
     //clouds.rotation.y += 0.0005;
     requestAnimationFrame(render);

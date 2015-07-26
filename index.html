@@ -75,7 +75,7 @@
     .bottom-left {
       position:absolute;
       bottom: 40px;
-      left: 40px ;
+      left: 220px ;
       color: white;
       padding-right: 40px;
     }
@@ -89,6 +89,10 @@
       background-color: #000;
       border-right: 1px solid #404040;
       z-index: 999998;
+    }
+
+    #right-view {
+      margin-left: 100px;
     }
 
     #controls {
@@ -189,48 +193,45 @@
     </style>
 </head>
 <body>
-  <div class="top">
-    <span>
-    Step through time to see how New Horizons and others changed our view of Pluto.
-    </span>
-    <div class="social-container">
-      <ul class="share-buttons">
-        <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.ianww,com/pluto&t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"><img src="images/flat_web_icon_set/color/Facebook.png"></a></li>
-        <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fwww.ianww.com/pluto&text=:%20http%3A%2F%2Fwww.ianww.com/pluto&via=iwebst" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"><img src="images/flat_web_icon_set/color/Twitter.png"></a></li>
-        <li><a href="mailto:?subject=&body=:%20http%3A%2F%2Fwww.ianww.com/pluto" target="_blank" title="Email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&body=' +  encodeURIComponent(document.URL)); return false;"><img src="images/flat_web_icon_set/color/Email.png"></a></li>
-      </ul>
+  <div id="right-view">
+    <div class="top">
+      <span>
+      Step through time to see how New Horizons and others changed our view of Pluto.
+      </span>
+      <div class="social-container">
+        <ul class="share-buttons">
+          <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.ianww,com/pluto&t=" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"><img src="images/flat_web_icon_set/color/Facebook.png"></a></li>
+          <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fwww.ianww.com/pluto&text=:%20http%3A%2F%2Fwww.ianww.com/pluto&via=iwebst" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"><img src="images/flat_web_icon_set/color/Twitter.png"></a></li>
+          <li><a href="mailto:?subject=&body=:%20http%3A%2F%2Fwww.ianww.com/pluto" target="_blank" title="Email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&body=' +  encodeURIComponent(document.URL)); return false;"><img src="images/flat_web_icon_set/color/Email.png"></a></li>
+        </ul>
+      </div>
     </div>
+    <div id="controls">
+      <span id="btn-prev" class="button arrow fa fa-arrow-left no-selection"></span>
+      <span id="btn-play" class="button arrow fa fa-play no-selection"></span>
+      <span id="btn-pause" class="button arrow fa fa-pause no-selection" style="display: none;"></span>
+      <span id="btn-next" class="button arrow fa fa-arrow-right inactive no-selection"></span>
+    </div>
+    <div id="jump-to-container">
+      <span>View on date... </span>
+      <select id="jump-to" class="button">
+      </select>
+      <p>
+        <span id="btn-rotate" class="button">Rotate globe</span>
+      </p>
+    </div>
+    <div class="bottom-left">
+      <div class="title">Pluto as seen by <span id="mapped-by">New Horizons</span> <span id="mapped-when"></span></div>
+      <div id="credit" class="credit">Textures courtesy of Björn Jónsson, Marc W. Buie (Southwest Research Institute), and NASA.</div>
+    </div>
+    <div id="instructions">
+      Use the ← and → keys to step through time.
+    </div>
+    <div id="webgl"></div>
   </div>
-<!--
-  <div class="top-sub">
-    Time since flyby: <span id="timer"></span>
-  </div>
--->
   <div id="left-nav">
 
   </div>
-  <div id="controls">
-    <span id="btn-prev" class="button arrow fa fa-arrow-left no-selection"></span>
-    <span id="btn-play" class="button arrow fa fa-play no-selection"></span>
-    <span id="btn-pause" class="button arrow fa fa-pause no-selection" style="display: none;"></span>
-    <span id="btn-next" class="button arrow fa fa-arrow-right inactive no-selection"></span>
-  </div>
-  <div id="jump-to-container">
-    <span>View on date... </span>
-    <select id="jump-to" class="button">
-    </select>
-    <p>
-      <span id="btn-rotate" class="button">Rotate globe</span>
-    </p>
-  </div>
-  <div class="bottom-left">
-    <div class="title">Pluto as seen by <span id="mapped-by">New Horizons</span> <span id="mapped-when"></span></div>
-    <div id="credit" class="credit">Textures courtesy of Björn Jónsson, Marc W. Buie (Southwest Research Institute), and NASA.</div>
-  </div>
-  <div id="instructions">
-    Use the ← and → keys to step through time.
-  </div>
-  <div id="webgl"></div>
   <script src="js/three.min.js"></script>
   <script src="js/Detector.js"></script>
   <script src="js/OrbitControls.js"></script>

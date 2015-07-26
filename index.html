@@ -42,9 +42,7 @@
       left: 0;
       width: 100%;
       height: 40px;
-      background-color: black;
-      border-bottom: 1px solid #404040;
-      z-index: 999999;
+      z-index: 999998;
       color: white;
       line-height: 2.5;
       text-align: center;
@@ -80,6 +78,17 @@
       left: 40px ;
       color: white;
       padding-right: 40px;
+    }
+
+    #left-nav {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 200px;
+      background-color: #000;
+      border-right: 1px solid #404040;
+      z-index: 999998;
     }
 
     #controls {
@@ -197,6 +206,9 @@
     Time since flyby: <span id="timer"></span>
   </div>
 -->
+  <div id="left-nav">
+
+  </div>
   <div id="controls">
     <span id="btn-prev" class="button arrow fa fa-arrow-left no-selection"></span>
     <span id="btn-play" class="button arrow fa fa-play no-selection"></span>

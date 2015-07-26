@@ -7,6 +7,12 @@
       desc: '',
     },
     {
+      mappedBy: 'photometric measurements',
+      path: 'pluto-mutualevent-1992.png',
+      date: '1992',
+      desc: 'Texture courtesy of Marc W. Buie, photometry between 1954 and 1990.',
+    },
+    {
       mappedBy: 'Hubble Space Telescope (ESA Faint Object Camera)',
       path: 'hs-2010-06-f-full_jpg-long0.jpg',
       date: '1994',
@@ -142,7 +148,8 @@
 
     // Details setup.
     document.getElementById('mapped-by').innerHTML = timestep.mappedBy;
-    document.getElementById('mapped-when').innerHTML = timestep.date;
+    document.getElementById('mapped-when').innerHTML =
+      (isNaN(parseInt(timestep.date[0])) ? 'on' : 'in') + ' ' + timestep.date;
     document.getElementById('credit').innerHTML = timestep.desc;
 
     // Sphere setup.

@@ -39,7 +39,6 @@
     .top {
       position: absolute;
       top: 0;
-      left: 100px;
       width: 100%;
       height: 40px;
       z-index: 999998;
@@ -73,9 +72,9 @@
     }
 
     .bottom-left {
-      position:absolute;
+      position: absolute;
       bottom: 40px;
-      left: 220px ;
+      margin-left: 20px;
       color: white;
       padding-right: 40px;
     }
@@ -89,10 +88,12 @@
       background-color: #000;
       border-right: 1px solid #404040;
       z-index: 999998;
+
+      display: none;
     }
 
     #right-view {
-      margin-left: 100px;
+      /*margin-left: 100px;*/
     }
 
     #controls {
@@ -186,7 +187,7 @@
         font-size: 20px;
       }
 
-      #instructions, .social-container {
+      #instructions, .social-container, #jump-to-container {
         display: none;
       }
     }

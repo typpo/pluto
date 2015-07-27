@@ -151,10 +151,12 @@
     rotatingFast = !rotatingFast;
   };
 
+  /*
   webglEl.addEventListener('mousedown', function() {
     rotationSpeed = 0;
     btnRotateElt.innerHTML = 'Rotate globe';
   }, false);
+  */
 
   // Select logic
   var selectHtml = '';

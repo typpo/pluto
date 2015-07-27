@@ -262,8 +262,9 @@
     step(true);
   };
 
-  webglEl.addEventListener( 'mousedown', function() {
+  webglEl.addEventListener('mousedown', function() {
     rotationSpeed = 0;
+    btnRotate.innerHTML = 'Rotate globe';
   }, false);
 
   setTimeout(function preloadTextures() {

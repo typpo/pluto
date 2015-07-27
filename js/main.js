@@ -217,12 +217,13 @@
     this.innerHTML = (markersHidden ? 'Show' : 'Hide') + ' markers';
   };
 
+  // Picture sidebar setup.
   var btnTogglePictures = document.getElementById('btn-toggle-pictures');
   var picturesShown = false;
   btnTogglePictures.onclick = function() {
     if (picturesShown) {
       document.getElementById('left-nav').style.display = 'none';
-      document.getElementById('right-view').style.marginLeft = '0px';
+      document.getElementById('bottom-left').style.left = '0';
     } else {
       document.getElementById('left-nav').style.display = 'block';
       document.getElementById('bottom-left').style.left = '200px';

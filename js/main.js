@@ -209,7 +209,6 @@
     }, false);
     domEvents.addEventListener(marker, 'mouseout', function(e) {
       globeTooltipElt.style.display = 'none';
-      console.log('out');
     }, false);
     sphereAndPoints.add(marker);
     markers.push(marker);

@@ -15,8 +15,8 @@
     segments = 32,
     rotation = 80;
 
-  //var rotationSpeed = 0.0005;
-  var rotationSpeed = 0;
+  var sphereAndPoints = new THREE.Object3D();
+  var rotationSpeed = 0.0005;
 
   var scene = new THREE.Scene();
 
@@ -61,14 +61,14 @@
     var oldRotation = rotation;
     if (sphere) {
       oldRotation = sphere.rotation.y;
-      scene.remove(sphere);
+      sphereAndPoints.remove(sphere);
     }
     sphere = createSphere(timestep.path, radius, segments);
     if (mapIndex == maps.length) {
       mapIndex = 0;
     }
     sphere.rotation.y = oldRotation;
-    scene.add(sphere)
+    sphereAndPoints.add(sphere);
 
     if (mapIndex == maps.length - 1) {
       btnNextElt.classList.add('inactive');
@@ -174,6 +174,7 @@
   var globeTooltipElt = document.getElementById('globe-tooltip');
   var domEvents = new THREEx.DomEvents(camera, renderer.domElement);
   var markers = [];
+  sphereAndPoints.add(sphere);
 
   window.points.forEach(function(point) {
     var material = new THREE.MeshBasicMaterial({color: 0xFEE5AC});
@@ -194,7 +195,7 @@
       globeTooltipElt.style.display = 'none';
       console.log('out');
     }, false);
-    scene.add(marker);
+    sphereAndPoints.add(marker);
     markers.push(marker);
   });
 
@@ -227,9 +228,17 @@
   scene.add(clouds)
  */
 
+
+
+  // Final pluto object
+  scene.add(sphereAndPoints);
+
+  // Stars
   var stars = createStars(90, 64);
   scene.add(stars);
 
+
+  // Controls
   var controls = new THREE.OrbitControls(camera, webglEl);
   controls.minDistance = 1;
   controls.maxDistance = 20;
@@ -240,14 +249,12 @@
 
   webglEl.appendChild(renderer.domElement);
 
-  //startCountdown();
-
   render();
 
   function render() {
     controls.update();
-    if (sphere) {
-      sphere.rotation.y += rotationSpeed;
+    if (sphereAndPoints && rotationSpeed) {
+      sphereAndPoints.rotation.y += rotationSpeed;
     }
     //clouds.rotation.y += 0.0005;
     requestAnimationFrame(render);

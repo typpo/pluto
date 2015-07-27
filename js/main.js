@@ -221,11 +221,11 @@
   var picturesShown = false;
   btnTogglePictures.onclick = function() {
     if (picturesShown) {
-      document.getElementById("left-nav").style.display = 'none';
-      document.getElementById("right-view").style.marginLeft = "0px";
+      document.getElementById('left-nav').style.display = 'none';
+      document.getElementById('right-view').style.marginLeft = '0px';
     } else {
-      document.getElementById("left-nav").style.display = 'block';
-      document.getElementById("right-view").style.marginLeft = "200px";
+      document.getElementById('left-nav').style.display = 'block';
+      document.getElementById('bottom-left').style.left = '200px';
     }
     picturesShown = !picturesShown;
     this.innerHTML = (picturesShown ? 'Hide' : 'Show') + ' pictures';

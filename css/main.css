@@ -42,7 +42,7 @@ a {
   color: #aaa;
 }
 
-.bottom-left {
+#bottom-left {
   position: absolute;
   bottom: 40px;
   margin-left: 20px;

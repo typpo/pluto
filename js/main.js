@@ -183,8 +183,11 @@
     var pos = latLngToVector3(point.latlng[0], point.latlng[1], radius, 0);
     marker.position.set(pos.x, pos.y, pos.z);
     domEvents.addEventListener(marker, 'mouseover', function(e) {
+      // Stop rotation.
       rotationSpeed = 0;
+      btnRotateElt.innerHTML = 'Rotate globe';
 
+      // Build tooltip.
       var x = e.origDomEvent.clientX + 10;
       var y = e.origDomEvent.clientY - 5;
 

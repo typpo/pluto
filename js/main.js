@@ -407,7 +407,15 @@
       var pictureElement = document.createElement('img');
       pictureElement.src = picture.url;
       pictureElement.className = 'left-nav-image';
-      leftNav.appendChild(pictureElement);
+
+
+      var linkElement = document.createElement('a');
+      linkElement.href = picture.link;
+      linkElement.target = '_blank';
+      linkElement.title = picture.caption + '\n\n' + picture.desc;
+
+      linkElement.appendChild(pictureElement);
+      leftNav.appendChild(linkElement);
     });
   }
 }());

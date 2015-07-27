@@ -274,6 +274,7 @@
       scene.add(ambientLight);
       this.innerHTML = 'Decrease light';
     }
+    lightsOn = !lightsOn;
   };
 
   // Preload textures

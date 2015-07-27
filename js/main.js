@@ -16,7 +16,8 @@
     rotation = 80;
 
   var sphereAndPoints = new THREE.Object3D();
-  var rotationSpeed = 0.0005;
+  //var rotationSpeed = 0.0005;
+  var rotationSpeed = 0.001;
 
   var scene = new THREE.Scene();
 
@@ -26,7 +27,7 @@
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(width, height);
 
-  scene.add(new THREE.AmbientLight(0x333333));
+  //scene.add(new THREE.AmbientLight(0x333333));
 
   var light = new THREE.DirectionalLight(0xffffff, 1);
   light.position.set(5,3,5);
@@ -242,6 +243,26 @@
     this.innerHTML = (picturesShown ? 'Hide' : 'Show') + ' pictures';
   };
 
+  // Atmosphere.
+  var customMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+      "c":   { type: "f", value: 0.3 },
+      "p":   { type: "f", value: 6 },
+      glowColor: { type: "c", value: new THREE.Color(0xffffff) },
+      viewVector: { type: "v3", value: camera.position }
+    },
+    vertexShader:   document.getElementById('atmosphere-vertex-shader').textContent,
+    fragmentShader: document.getElementById('atmosphere-fragment-shader').textContent,
+    side: THREE.BackSide,
+    blending: THREE.AdditiveBlending,
+    transparent: true
+  });
+  var atmosphere = new THREE.Mesh(
+    new THREE.SphereGeometry(radius, segments, segments), customMaterial);
+  atmosphere.position.set(sphere.position.x, sphere.position.y, sphere.position.z);
+  atmosphere.scale.multiplyScalar(1.2);
+  scene.add(atmosphere);
+
   // Preload textures
   setTimeout(function preloadTextures() {
     for (var i=0; i < maps.length; i++) {
@@ -256,8 +277,6 @@
   clouds.rotation.y = rotation;
   scene.add(clouds)
  */
-
-
 
   // Final pluto object
   scene.add(sphereAndPoints);

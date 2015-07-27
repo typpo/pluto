@@ -102,11 +102,13 @@ window.points = [
     name: 'Tombaugh Regio',
     latlng: [10, 0],
     desc: 'Large bright area, aka "The Heart"',
+    img: 'http://i.imgur.com/pUCSOdll.jpg',
   },
   {
     name: 'Sputnik Planum',
     latlng: [25, -10],
     desc: 'Left side of "The Heart"',
+    img: 'http://i.imgur.com/SCMoVeMl.jpg',
   },
   {
     name: 'Hillary Montes',
@@ -121,11 +123,11 @@ window.points = [
     img: 'http://i.imgur.com/5PbJBFEl.png',
   },
   {
-    name: 'Eliot Crater',
+    name: 'Elliot Crater',
     latlng: [11, -47],
   },
   {
-    name: 'Cthulu Regio',
+    name: 'Cthulhu Regio',
     latlng: [-5, -87],
     desc: 'Large dark area, aka "The Whale"',
   },
@@ -133,6 +135,7 @@ window.points = [
     name: 'Krun',
     latlng: [-13, 27],
     desc: 'One of the "Brass Knuckles," named after the lord of the underworld in the Mandaean religion.',
+    img: 'http://i.imgur.com/CLJlmiI.jpg',
   },
   {
     name: 'Ala',

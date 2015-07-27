@@ -228,7 +228,7 @@
       document.getElementById("right-view").style.marginLeft = "200px";
     }
     picturesShown = !picturesShown;
-    this.innerHTML = (picturesShown ? 'Show' : 'Hide') + ' pictures';
+    this.innerHTML = (picturesShown ? 'Hide' : 'Show') + ' pictures';
   };
 
   // Preload textures

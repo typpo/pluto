@@ -234,10 +234,10 @@
   btnTogglePictures.onclick = function() {
     if (picturesShown) {
       document.getElementById('left-nav').style.display = 'none';
-      document.getElementById('bottom-left').style.left = '20px';
+      document.getElementById('bottom-left').style.left = '40px';
     } else {
       document.getElementById('left-nav').style.display = 'block';
-      document.getElementById('bottom-left').style.left = '220px';
+      document.getElementById('bottom-left').style.left = '240px';
     }
     picturesShown = !picturesShown;
     this.innerHTML = (picturesShown ? 'Hide' : 'Show') + ' pictures';

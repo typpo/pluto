@@ -45,7 +45,7 @@ a {
 #bottom-left {
   position: absolute;
   bottom: 40px;
-  left: 220px;
+  left: 240px;   /* note: sync in main.js */
   color: white;
   padding-right: 40px;
 }
@@ -199,7 +199,7 @@ ul.share-buttons img {
   }
 
   #bottom-left {
-    left: 20px;
+    left: 40px;   /* note: sync in main.js */
   }
 }
 

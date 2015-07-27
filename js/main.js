@@ -200,6 +200,9 @@
       if (point.desc) {
         tip += '<br><span>' + point.desc + '</span>';
       }
+      if (point.img) {
+        tip += '<img src="' + point.img + '">';
+      }
       globeTooltipElt.innerHTML = tip;
     }, false);
     domEvents.addEventListener(marker, 'mouseout', function(e) {

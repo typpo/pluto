@@ -112,11 +112,13 @@ window.points = [
     name: 'Hillary Montes',
     latlng: [4, -22],
     desc: 'A mountain range reaching altitudes of 1.6km (5,200ft)',
+    img: 'http://i.imgur.com/wEQzUQsl.png',
   },
   {
     name: 'Norgay Montes',
     latlng: [-20, -13],
     desc: 'A mountain range reaching altitudes of 3.4km (11,000ft)',
+    img: 'http://i.imgur.com/5PbJBFEl.png',
   },
   {
     name: 'Eliot Crater',

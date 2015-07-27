@@ -247,10 +247,10 @@
   // Atmosphere.
   var customMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      "c":   { type: "f", value: 0.3 },
-      "p":   { type: "f", value: 6 },
-      glowColor: { type: "c", value: new THREE.Color(0xffffff) },
-      viewVector: { type: "v3", value: camera.position }
+      'c':   { type: 'f', value: 0.2 },
+      'p':   { type: 'f', value: 6 },
+      glowColor: { type: 'c', value: new THREE.Color(0xffffff) },
+      viewVector: { type: 'v3', value: camera.position }
     },
     vertexShader:   document.getElementById('atmosphere-vertex-shader').textContent,
     fragmentShader: document.getElementById('atmosphere-fragment-shader').textContent,

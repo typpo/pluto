@@ -230,14 +230,14 @@
 
   // Picture sidebar setup.
   var btnTogglePictures = document.getElementById('btn-toggle-pictures');
-  var picturesShown = false;
+  var picturesShown = true;
   btnTogglePictures.onclick = function() {
     if (picturesShown) {
       document.getElementById('left-nav').style.display = 'none';
-      document.getElementById('bottom-left').style.left = '0';
+      document.getElementById('bottom-left').style.left = '20px';
     } else {
       document.getElementById('left-nav').style.display = 'block';
-      document.getElementById('bottom-left').style.left = '200px';
+      document.getElementById('bottom-left').style.left = '220px';
     }
     picturesShown = !picturesShown;
     this.innerHTML = (picturesShown ? 'Hide' : 'Show') + ' pictures';
@@ -312,6 +312,7 @@
   webglEl.appendChild(renderer.domElement);
 
   populatePictures();
+
   render();
 
   function render() {

@@ -27,7 +27,7 @@
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(width, height);
 
-  //scene.add(new THREE.AmbientLight(0x333333));
+  var ambientLight = new THREE.AmbientLight(0x555555);
 
   var light = new THREE.DirectionalLight(0xffffff, 1);
   light.position.set(5,3,5);
@@ -263,6 +263,19 @@
   atmosphere.position.set(sphere.position.x, sphere.position.y, sphere.position.z);
   atmosphere.scale.multiplyScalar(1.2);
   scene.add(atmosphere);
+
+  // Lighting.
+  var increaseLightElt = document.getElementById('btn-increase-light');
+  var lightsOn = false;
+  increaseLightElt.onclick = function() {
+    if (lightsOn) {
+      scene.remove(ambientLight);
+      this.innerHTML = 'Increase light';
+    } else {
+      scene.add(ambientLight);
+      this.innerHTML = 'Decrease light';
+    }
+  };
 
   // Preload textures
   setTimeout(function preloadTextures() {

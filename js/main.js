@@ -208,9 +208,9 @@
   btnToggleMarkers.onclick = function() {
     markers.forEach(function(marker) {
       if (markersHidden) {
-        scene.add(marker);
+        sphereAndPoints.add(marker);
       } else {
-        scene.remove(marker);
+        sphereAndPoints.remove(marker);
       }
     });
     markersHidden = !markersHidden;

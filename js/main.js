@@ -189,7 +189,11 @@
       globeTooltipElt.style.display = '';
       globeTooltipElt.style.left = x + 'px';
       globeTooltipElt.style.top = y + 'px';
-      globeTooltipElt.innerHTML = point.name;
+      var tip = point.name;
+      if (point.desc) {
+        tip += '<br><span>' + point.desc + '</span>';
+      }
+      globeTooltipElt.innerHTML = tip;
     }, false);
     domEvents.addEventListener(marker, 'mouseout', function(e) {
       globeTooltipElt.style.display = 'none';

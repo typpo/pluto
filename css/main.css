@@ -152,11 +152,19 @@ ul.share-buttons img {
   left: 30px;
 
   color: white;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
 
   -webkit-text-stroke-width: 1px;
- -webkit-text-stroke-color: black;
+  -webkit-text-stroke-color: black;
+
+  width: 300px;
+}
+
+#globe-tooltip span {
+  font-size: 16px;
+  margin-top: -10px;
+ -webkit-text-stroke-width: 0.5px;
 }
 
 .no_selection {

@@ -101,7 +101,7 @@ window.points = [
   {
     name: 'Tombaugh Regio',
     latlng: [10, 0],
-    desc: 'Large white area, aka "The Heart"',
+    desc: 'Large bright area, aka "The Heart"',
   },
   {
     name: 'Spatnik Planum',

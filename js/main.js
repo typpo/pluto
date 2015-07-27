@@ -180,7 +180,7 @@
 
   window.points.forEach(function(point) {
     var material = new THREE.MeshBasicMaterial({color: 0xFEE5AC});
-    var geom =  new THREE.SphereGeometry(0.008, 64, 64);
+    var geom =  new THREE.SphereGeometry(0.009, 64, 64);
     var marker = new THREE.Mesh(geom, material);
     var pos = latLngToVector3(point.latlng[0], point.latlng[1], radius, 0);
     marker.position.set(pos.x, pos.y, pos.z);

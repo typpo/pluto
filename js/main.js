@@ -1,104 +1,5 @@
 (function () {
   'use strict';
-  var maps = [
-    {
-      mappedBy: 'Clyde Tombaugh',
-      path: null,
-      date: 'January 29, 1930',
-      desc: '',
-    },
-    {
-      mappedBy: 'photometric measurements',
-      path: 'pluto-mutualevent-1992.png',
-      date: '1992',
-      desc: 'Texture courtesy of Marc W. Buie, photometry between 1954 and 1990.',
-    },
-    {
-      mappedBy: 'Hubble Space Telescope (ESA Faint Object Camera)',
-      path: 'hs-2010-06-f-full_jpg-long0.jpg',
-      date: '1994',
-      desc: 'Texture courtesy of NASA and Marc W. Buie (Southwest Research Institute).',
-    },
-    {
-      mappedBy: 'Hubble Space Telescope (ESA Faint Object Camera)',
-      path: 'hs-1996-09-c-full_jpg.jpg',
-      date: 'March 7, 1996',
-      desc: 'Texture courtesy of NASA.',
-    },
-    {
-      mappedBy: 'Hubble Space Telescope (Advanced Camera for Surveys)',
-      path: 'hs-2010-06-g-full_jpg-long0.jpg',
-      date: '2002-2003',
-      desc: 'Texture courtesy of NASA and Marc W. Buie (Southwest Research Institute).',
-    },
-    {
-      mappedBy: 'Hubble Space Telescope (Advanced Camera for Surveys)',
-      path: 'pluto_all-adjusted.png',
-      date: 'February 4, 2010',
-      desc: 'Texture courtesy of Marc W. Buie (Southwest Research Institute). Area around poles added artificially',
-    },
-    {
-      mappedBy: 'New Horizons',
-      path: 'pluto-bjorn-20150625.png',
-      date: 'June 25, 2015',
-      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
-    },
-    {
-      mappedBy: 'New Horizons',
-      path: 'pluto-bjorn-20150703.png',
-      date: 'July 3, 2015',
-      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
-    },
-    {
-      mappedBy: 'New Horizons',
-      path: 'pluto-bjorn-20150707.png',
-      date: 'July 7, 2015',
-      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
-    },
-    {
-      mappedBy: 'New Horizons',
-      path: 'pluto-bjorn-20150709.png',
-      date: 'July 9, 2015',
-      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
-    },
-    {
-      mappedBy: 'New Horizons',
-      path: 'pluto-bjorn-20150711.0.png',
-      date: 'July 11, 2015',
-      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
-    },
-    {
-      mappedBy: 'New Horizons',
-      path: 'pluto-bjorn-20150711.png',
-      date: 'July 11, 2015 evening',
-      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
-    },
-    {
-      mappedBy: 'New Horizons',
-      path: 'pluto-bjorn-20150712.png',
-      date: 'July 12, 2015',
-      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
-    },
-    {
-      mappedBy: 'New Horizons',
-      path: 'pluto-bjorn-20150714.png',
-      date: 'July 14, 2015',
-      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
-    },
-    {
-      mappedBy: 'New Horizons',
-      path: 'pluto-bjorn-20150719.png',
-      date: 'July 19, 2015',
-      desc: 'Texture courtesy of Björn Jónsson, images from NASA.',
-    },
-    {
-      mappedBy: 'New Horizons',
-      path: 'pluto-bjorn-20150719-filled.png',
-      date: 'July 19, 2015',
-      desc: 'Texture courtesy of Björn Jónsson, images from NASA. Area around south pole added artificially.',
-    }
-  ];
-
   var webglEl = document.getElementById('webgl');
 
   if (!Detector.webgl) {
@@ -114,7 +15,8 @@
     segments = 32,
     rotation = 80;
 
-  var rotationSpeed = 0.0005;
+  //var rotationSpeed = 0.0005;
+  var rotationSpeed = 0;
 
   var scene = new THREE.Scene();
 
@@ -187,6 +89,7 @@
 
   step(false);
 
+  // Event listeners for prev/next
   var t = -1;
   document.addEventListener('keydown', function(e) {
     var now = new Date().getTime();
@@ -235,9 +138,9 @@
   };
 
   // Rotate logic
-  var btnRotate = document.getElementById('btn-rotate');
+  var btnRotateElt = document.getElementById('btn-rotate');
   var rotatingFast = false;
-  btnRotate.onclick = function() {
+  btnRotateElt.onclick = function() {
     if (rotatingFast) {
       rotationSpeed = 0;
       this.innerHTML = 'Rotate globe';
@@ -247,6 +150,11 @@
     }
     rotatingFast = !rotatingFast;
   };
+
+  webglEl.addEventListener('mousedown', function() {
+    rotationSpeed = 0;
+    btnRotateElt.innerHTML = 'Rotate globe';
+  }, false);
 
   // Select logic
   var selectHtml = '';
@@ -262,11 +170,49 @@
     step(true);
   };
 
-  webglEl.addEventListener('mousedown', function() {
-    rotationSpeed = 0;
-    btnRotate.innerHTML = 'Rotate globe';
-  }, false);
+  // Surface markers
+  var globeTooltipElt = document.getElementById('globe-tooltip');
+  var domEvents = new THREEx.DomEvents(camera, renderer.domElement);
+  var markers = [];
 
+  window.points.forEach(function(point) {
+    var material = new THREE.MeshBasicMaterial({color: 0xFEE5AC});
+    var geom =  new THREE.SphereGeometry(0.008, 64, 64);
+    var marker = new THREE.Mesh(geom, material);
+    var pos = latLngToVector3(point.latlng[0], point.latlng[1], radius, 0);
+    marker.position.set(pos.x, pos.y, pos.z);
+    domEvents.addEventListener(marker, 'mouseover', function(e) {
+      var x = e.origDomEvent.clientX + 10;
+      var y = e.origDomEvent.clientY - 5;
+
+      globeTooltipElt.style.display = '';
+      globeTooltipElt.style.left = x + 'px';
+      globeTooltipElt.style.top = y + 'px';
+      globeTooltipElt.innerHTML = point.name;
+    }, false);
+    domEvents.addEventListener(marker, 'mouseout', function(e) {
+      globeTooltipElt.style.display = 'none';
+      console.log('out');
+    }, false);
+    scene.add(marker);
+    markers.push(marker);
+  });
+
+  var btnToggleMarkers = document.getElementById('btn-toggle-markers');
+  var markersHidden = false;
+  btnToggleMarkers.onclick = function() {
+    markers.forEach(function(marker) {
+      if (markersHidden) {
+        scene.add(marker);
+      } else {
+        scene.remove(marker);
+      }
+    });
+    markersHidden = !markersHidden;
+    this.innerHTML = (markersHidden ? 'Show' : 'Hide') + ' markers';
+  };
+
+  // Preload textures
   setTimeout(function preloadTextures() {
     for (var i=0; i < maps.length; i++) {
       if (!maps[i].path) continue;
@@ -372,5 +318,17 @@
       var sel = window.getSelection();
       sel.removeAllRanges();
     }
+  }
+
+  // Convert the positions from a lat, lng to a position on a sphere.
+  function latLngToVector3(lat, lng, radius, height) {
+    var phi = (lat)*Math.PI/180;
+    var theta = (lng+90)*Math.PI/180;
+
+    var x = -(radius+height) * Math.cos(phi) * Math.cos(theta);
+    var y = (radius+height) * Math.sin(phi);
+    var z = (radius+height) * Math.cos(phi) * Math.sin(theta);
+
+    return new THREE.Vector3(x,y,z);
   }
 }());

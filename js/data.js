@@ -159,3 +159,26 @@ window.points = [
   },
 ];
 
+window.pictures = [
+  {
+    url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/global-mosaic-of-pluto-in-true-color.jpg?itok=Q2G8K9Mr',
+  },
+  { 
+    url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/nh-pluto-in-false-color.jpg?itok=hrxvaseF',
+  },
+  {
+    url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/nh-pluto-mountain-range.png?itok=DU9MS85A',
+  },
+  {
+    url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/frozen_carbon_monoxide_pluto.jpg?itok=tDLH45UH',
+  },
+  {
+    url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/tn-p_lorri_fullframe_bw.jpg?itok=FXQ_mP8w',
+  },
+  {
+    url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/pluto-and-charon-01.jpg?itok=1QsBZEmJ',
+  },
+  {
+    url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/nh-color-pluto-charon.jpg?itok=bNMhEgWg',
+  },
+];

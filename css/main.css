@@ -59,12 +59,17 @@ a {
   background-color: #000;
   border-right: 1px solid #404040;
   z-index: 999998;
-
+  overflow: auto;
   display: none;
 }
 
+.left-nav-image {
+  width: 200px;
+  height: auto;
+}
+
 #right-view {
-  /*margin-left: 100px;*/
+  /* margin-left: 200px; */
 }
 
 #controls {

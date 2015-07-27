@@ -217,6 +217,20 @@
     this.innerHTML = (markersHidden ? 'Show' : 'Hide') + ' markers';
   };
 
+  var btnTogglePictures = document.getElementById('btn-toggle-pictures');
+  var picturesShown = false;
+  btnTogglePictures.onclick = function() {
+    if (picturesShown) {
+      document.getElementById("left-nav").style.display = 'none';
+      document.getElementById("right-view").style.marginLeft = "0px";
+    } else {
+      document.getElementById("left-nav").style.display = 'block';
+      document.getElementById("right-view").style.marginLeft = "200px";
+    }
+    picturesShown = !picturesShown;
+    this.innerHTML = (picturesShown ? 'Show' : 'Hide') + ' pictures';
+  };
+
   // Preload textures
   setTimeout(function preloadTextures() {
     for (var i=0; i < maps.length; i++) {
@@ -253,6 +267,7 @@
 
   webglEl.appendChild(renderer.domElement);
 
+  populatePictures();
   render();
 
   function render() {
@@ -341,5 +356,15 @@
     var z = (radius+height) * Math.cos(phi) * Math.sin(theta);
 
     return new THREE.Vector3(x,y,z);
+  }
+
+  function populatePictures() {
+    var leftNav = document.getElementById('left-nav');
+    window.pictures.forEach(function(picture) {
+      var pictureElement = document.createElement('img');
+      pictureElement.src = picture.url;
+      pictureElement.className = 'left-nav-image';
+      leftNav.appendChild(pictureElement);
+    });
   }
 }());

@@ -120,9 +120,10 @@
 
   var playInterval;
   btnPlayElt.onclick = function() {
+    mapIndex = -1;
     (function play() {
       if (mapIndex == maps.length - 1) {
-        mapIndex = -1;
+        return;
       }
       step(true);
       btnPlayElt.style.display = 'none';

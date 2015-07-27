@@ -21,7 +21,7 @@
   var scene = new THREE.Scene();
 
   var camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
-  camera.position.z = 5;
+  camera.position.z = 4;
 
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(width, height);

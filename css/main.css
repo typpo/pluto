@@ -65,7 +65,7 @@ a {
 .left-nav-image {
   width: 180px;
   height: auto;
-  margin: 0 auto;
+  margin-left: 5px;
 }
 
 #right-view {

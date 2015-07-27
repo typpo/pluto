@@ -104,7 +104,7 @@ window.points = [
     desc: 'Large bright area, aka "The Heart"',
   },
   {
-    name: 'Spatnik Planum',
+    name: 'Sputnik Planum',
     latlng: [25, -10],
     desc: 'Left side of "The Heart"',
   },
@@ -163,7 +163,7 @@ window.pictures = [
   {
     url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/global-mosaic-of-pluto-in-true-color.jpg?itok=Q2G8K9Mr',
   },
-  { 
+  {
     url: 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/nh-pluto-in-false-color.jpg?itok=hrxvaseF',
   },
   {

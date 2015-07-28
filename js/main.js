@@ -280,7 +280,7 @@
   // Orbits.
   var jed = 19084819.551782407;
   var charonCalc = setupCharon();
-  var charon = createSphere(null, radius * 1270/2320, segments);
+  var charon = createSphere('charon-bjorn-20150716.png', radius * 1270/2320, segments);
   var pos = charonCalc.getPosAtTime(jed);
   charon.position.set(pos[0], pos[1], pos[2]);
   scene.add(charon);

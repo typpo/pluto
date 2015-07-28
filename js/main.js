@@ -278,7 +278,7 @@
   };
 
   // Orbits.
-  var jed = getCurrentJED();
+  var jed = 19084819.551782407;
   var charonCalc = setupCharon();
   var charon = createSphere(null, radius * 1270/2320, segments);
   var pos = charonCalc.getPosAtTime(jed);
@@ -329,7 +329,7 @@
       sphereAndPoints.rotation.y += rotationSpeed;
     }
     if (charon) {
-      jed += 0.005;
+      jed += 0.002;
       var pos = charonCalc.getPosAtTime(jed);
       charon.position.set(pos[0], pos[1], pos[2]);
     }
@@ -437,7 +437,7 @@
     var orbit = new Orbit3D({
       a: 19571,
       e: 0,
-      i: 90-0.001,
+      i: -(90-0.001),
       p: 6.3872304,
       //o: 223.046,
       o: 0,

@@ -277,6 +277,15 @@
     lightsOn = !lightsOn;
   };
 
+  // Orbits.
+  var jed = getCurrentJED();
+  var charonCalc = setupCharon();
+  scene.add(charonCalc.createOrbit());
+  var charon = createSphere(null, radius * 1270/2320, segments);
+  var pos = charonCalc.getPosAtTime(jed);
+  charon.position.set(pos[0], pos[1], pos[2]);
+  scene.add(charon);
+
   // Preload textures
   setTimeout(function preloadTextures() {
     for (var i=0; i < maps.length; i++) {
@@ -319,6 +328,11 @@
     controls.update();
     if (sphereAndPoints && rotationSpeed) {
       sphereAndPoints.rotation.y += rotationSpeed;
+    }
+    if (charon) {
+      jed += 0.001;
+      var pos = charonCalc.getPosAtTime(jed);
+      charon.position.set(pos[0], pos[1], pos[2]);
     }
     //clouds.rotation.y += 0.0005;
     requestAnimationFrame(render);
@@ -410,7 +424,6 @@
       pictureElement.src = picture.url;
       pictureElement.className = 'left-nav-image';
 
-
       var linkElement = document.createElement('a');
       linkElement.href = picture.link;
       linkElement.target = '_blank';
@@ -419,5 +432,25 @@
       linkElement.appendChild(pictureElement);
       leftNav.appendChild(linkElement);
     });
+  }
+
+  function setupCharon() {
+    var orbit = new Orbit3D({
+      a: 19571,
+      e: 0,
+      i: 0.001,
+      p: 6.3872304,
+      o: 223.046,
+      w: Math.random(),
+      ma: 0,
+      epoch: 2452600.5,
+    }, {
+
+    });
+    return orbit;
+  }
+
+  function getCurrentJED() {
+    return (new Date().getTime() / 86400.0) + 2440587.5;
   }
 }());

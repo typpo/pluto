@@ -278,12 +278,15 @@
   };
 
   // Orbits.
-  var jed = 19084819.551782407;
-  var charonCalc = setupCharon();
-  var charon = createSphere('charon-bjorn-20150716.png', radius * 1270/2320, segments);
-  var pos = charonCalc.getPosAtTime(jed);
-  charon.position.set(pos[0], pos[1], pos[2]);
-  scene.add(charon);
+  var charon;
+  if (!isMobile()) {
+    var jed = 19084819.551782407;
+    var charonCalc = setupCharon();
+    charon = createSphere('charon-bjorn-20150716.png', radius * 1270/2320, segments);
+    var pos = charonCalc.getPosAtTime(jed);
+    charon.position.set(pos[0], pos[1], pos[2]);
+    scene.add(charon);
+  }
 
   // Preload textures
   setTimeout(function preloadTextures() {
@@ -452,5 +455,10 @@
 
   function getCurrentJED() {
     return (new Date().getTime() / 86400.0) + 2440587.5;
+  }
+
+  function isMobile() {
+    // For our intents and purposes, mobile is defined by window size.
+    return window.innerWidth <= 800 && window.innerHeight <= 600;
   }
 }());

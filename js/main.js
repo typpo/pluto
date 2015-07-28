@@ -425,6 +425,7 @@
       var pictureElement = document.createElement('img');
       pictureElement.src = '//wit.wurfl.io/w_180/' + picture.url;
       pictureElement.className = 'left-nav-image';
+      pictureElement.setAttribute('width', 180);
 
       var linkElement = document.createElement('a');
       linkElement.href = picture.link;

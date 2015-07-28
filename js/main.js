@@ -423,7 +423,7 @@
     var leftNav = document.getElementById('left-nav');
     window.pictures.forEach(function(picture) {
       var pictureElement = document.createElement('img');
-      pictureElement.src = picture.url;
+      pictureElement.src = '//wit.wurfl.io/w_180/' + picture.url;
       pictureElement.className = 'left-nav-image';
 
       var linkElement = document.createElement('a');

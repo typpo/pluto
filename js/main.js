@@ -279,6 +279,7 @@
 
   // Orbits.
   var charon;
+  var hydra;
   if (!isMobile()) {
     var jed = 19084819.551782407;
     var charonCalc = setupCharon();
@@ -286,6 +287,12 @@
     var pos = charonCalc.getPosAtTime(jed);
     charon.position.set(pos[0], pos[1], pos[2]);
     scene.add(charon);
+    
+    var hydraCalc = setupHydra();
+    hydra = createSphere(null, radius * 1270/2320, segments);
+    var pos = hydraCalc.getPosAtTime(jed);
+    hydra.position.set(pos[0], pos[1], pos[2]);
+    scene.add(hydra);
   }
 
   // Preload textures
@@ -335,6 +342,11 @@
       jed += 0.002;
       var pos = charonCalc.getPosAtTime(jed);
       charon.position.set(pos[0], pos[1], pos[2]);
+    }
+    if (hydra) {
+      jed += 0.002;
+      var pos = hydraCalc.getPosAtTime(jed);
+      hydra.position.set(pos[0], pos[1], pos[2]);
     }
     //clouds.rotation.y += 0.0005;
     requestAnimationFrame(render);
@@ -443,6 +455,23 @@
       e: 0,
       i: -(90-0.001),
       p: 6.3872304,
+      //o: 223.046,
+      o: 0,
+      w: 0,
+      ma: 0,
+      epoch: 2452600.5,
+    }, {
+
+    });
+    return orbit;
+  }
+
+  function setupHydra() {
+    var orbit = new Orbit3D({
+      a: 64738,
+      e: 0.005862,
+      i: -(90-0.242),
+      p: 38.20177,
       //o: 223.046,
       o: 0,
       w: 0,

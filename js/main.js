@@ -287,9 +287,9 @@
     var pos = charonCalc.getPosAtTime(jed);
     charon.position.set(pos[0], pos[1], pos[2]);
     scene.add(charon);
-    
+
     var hydraCalc = setupHydra();
-    hydra = createSphere(null, radius * 1270/2320, segments);
+    hydra = createSphere(null, radius * 55/2320 * 5, segments);
     var pos = hydraCalc.getPosAtTime(jed);
     hydra.position.set(pos[0], pos[1], pos[2]);
     scene.add(hydra);

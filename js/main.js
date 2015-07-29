@@ -229,18 +229,23 @@
   };
 
   // Picture sidebar setup.
-  var btnTogglePictures = document.getElementById('btn-toggle-pictures');
+  var btnTogglePictures = document.getElementById('btn-left-nav-toggle');
   var picturesShown = true;
   btnTogglePictures.onclick = function() {
+    // Keep styles synced in main.css.
     if (picturesShown) {
       document.getElementById('left-nav').style.display = 'none';
       document.getElementById('bottom-left').style.left = '40px';
+      btnTogglePictures.style.left = '0';
+      btnTogglePictures.style.width = '192px';
     } else {
       document.getElementById('left-nav').style.display = 'block';
       document.getElementById('bottom-left').style.left = '240px';
+      btnTogglePictures.style.left = '162px';
+      btnTogglePictures.style.width = '30px';
     }
     picturesShown = !picturesShown;
-    this.innerHTML = (picturesShown ? 'Hide' : 'Show') + ' pictures';
+    this.innerHTML = picturesShown ? '-' : 'Show NASA pictures &#9660;';
   };
 
   // Atmosphere.

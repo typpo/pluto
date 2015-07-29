@@ -68,6 +68,27 @@ a {
   margin-left: 5px;
 }
 
+#btn-left-nav-toggle {
+  position: absolute;
+  top: 0;
+  /* Keep synced in main.js */
+  left: 162px;
+  width: 30px;
+  height: 20px;
+
+  background-color: #404040;
+  color: #eee;
+  text-align: center;
+  padding-top: 4px;
+
+  cursor: pointer;
+  z-index: 999999;
+}
+
+#btn-left-nav-toggle:hover {
+  background-color: #505050;
+}
+
 #right-view {
   /* margin-left: 200px; */
 }

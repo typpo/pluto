@@ -129,7 +129,7 @@
       btnPlayElt.style.display = 'none';
       btnPauseElt.style.display = '';
 
-      playInterval = setTimeout(play, 1000);
+      playInterval = setTimeout(play, 2000);
     })();
   };
 

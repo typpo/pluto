@@ -285,15 +285,17 @@
   // Orbits.
   var charon;
   var hydra;
+  var charonCalc;
+  var hydraCalc;
   if (!isMobile()) {
     var jed = 19084819.551782407;
-    var charonCalc = setupCharon();
+    charonCalc = setupCharon();
     charon = createSphere('charon-bjorn-20150716.png', radius * 1270/2320, segments);
     var pos = charonCalc.getPosAtTime(jed);
     charon.position.set(pos[0], pos[1], pos[2]);
     scene.add(charon);
 
-    var hydraCalc = setupHydra();
+    hydraCalc = setupHydra();
     hydra = createSphere(null, radius * 55/2320 * 5, segments);
     var pos = hydraCalc.getPosAtTime(jed);
     hydra.position.set(pos[0], pos[1], pos[2]);
@@ -308,6 +310,9 @@
       im.src = 'images/' + maps[i].path;
     }
   }, 3000);
+
+  // Sun
+  setupSun();
 
   /*
     var clouds = createClouds(radius, segments);
@@ -486,6 +491,19 @@
 
     });
     return orbit;
+  }
+
+  function setupSun() {
+    var texture = THREE.ImageUtils.loadTexture('images/sunsprite.png');
+    var sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: texture,
+      blending: THREE.AdditiveBlending,
+      useScreenCoordinates: false,
+      color: 0xffffff
+    }));
+    sprite.scale.set(2,2,2);
+    sprite.position.set(15,9,15);
+    scene.add(sprite);
   }
 
   function getCurrentJED() {

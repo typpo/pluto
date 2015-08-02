@@ -29,10 +29,6 @@
 
   var ambientLight = new THREE.AmbientLight(0x555555);
 
-  var light = new THREE.DirectionalLight(0xffffff, 1);
-  light.position.set(5,3,5);
-  scene.add(light);
-
   var btnPrevElt = document.getElementById('btn-prev');
   var btnNextElt = document.getElementById('btn-next');
 
@@ -282,6 +278,9 @@
     lightsOn = !lightsOn;
   };
 
+  // Sun
+  setupSun();
+
   // Orbits.
   var charon;
   var hydra;
@@ -310,9 +309,6 @@
       im.src = 'images/' + maps[i].path;
     }
   }, 3000);
-
-  // Sun
-  setupSun();
 
   /*
     var clouds = createClouds(radius, segments);
@@ -501,9 +497,13 @@
       useScreenCoordinates: false,
       color: 0xffffff
     }));
-    sprite.scale.set(2,2,2);
-    sprite.position.set(15,9,15);
+    sprite.scale.set(4, 4, 4);
+    sprite.position.set(45, 6, 45);
     scene.add(sprite);
+
+  var sunlight = new THREE.DirectionalLight(0xffffff, 1);
+  sunlight.position.set(5, 3, 5);
+  scene.add(sunlight);
   }
 
   function getCurrentJED() {

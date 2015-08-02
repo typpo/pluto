@@ -501,9 +501,9 @@
     sprite.position.set(45, 6, 45);
     scene.add(sprite);
 
-  var sunlight = new THREE.DirectionalLight(0xffffff, 1);
-  sunlight.position.set(5, 3, 5);
-  scene.add(sunlight);
+    var sunlight = new THREE.DirectionalLight(0xffffff, 1);
+    sunlight.position.set(5, 3, 5);
+    scene.add(sunlight);
   }
 
   function getCurrentJED() {

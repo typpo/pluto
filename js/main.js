@@ -29,6 +29,7 @@
 
   var sunObj;
   var ambientLight = new THREE.AmbientLight(0x555555);
+  var atlasLight = new THREE.AmbientLight(0xffffff);
 
   var btnToggleMap = document.getElementById('btn-toggle-map');
   var btnPrevElt = document.getElementById('btn-prev');
@@ -40,45 +41,11 @@
   var btnToggleLight = document.getElementById('btn-toggle-light');
   var btnTogglePictures = document.getElementById('btn-left-nav-toggle');
 
+  var showingAtlasView = false;
+  var surfaceMarkersHidden = false;
+
   var sphere;
   var mapIndex = maps.length;   // Start at the most recent.
-  function step(forwards) {
-    if (showingAtlasView) {
-      toggleAtlasView.apply(btnToggleMap);
-    }
-    if (forwards) {
-      mapIndex++;
-    } else {
-      mapIndex--;
-    }
-
-    mapIndex = Math.min(maps.length - 1, mapIndex);
-    mapIndex = Math.max(0, mapIndex);
-
-    document.getElementById('jump-to').value = mapIndex + '';
-
-    var timestep = maps[mapIndex];
-
-    loadTimestep(timestep);
-
-    if (mapIndex == maps.length - 1) {
-      btnNextElt.classList.add('inactive');
-      mapIndex = maps.length - 1;
-    } else {
-      btnNextElt.classList.remove('inactive');
-    }
-
-    if (mapIndex == 0) {
-      btnPrevElt.classList.add('inactive');
-      mapIndex = 0;
-    } else {
-      btnPrevElt.classList.remove('inactive');
-    }
-
-    clearSelection();   // Sometimes part of the page can be selected on fast click.
-  }
-
-  step(false);
 
   // Event listeners for prev/next
   var t = -1;
@@ -107,6 +74,10 @@
   // Play/pause logic
   var playInterval;
   btnPlayElt.onclick = function() {
+    if (showingAtlasView) {
+      toggleAtlasView.apply(btnToggleMap);
+    }
+
     mapIndex = -1;
     (function play() {
       if (mapIndex == maps.length - 1) {
@@ -160,65 +131,41 @@
     step(true);
   };
 
-  // Surface markers
-  var globeTooltipElt = document.getElementById('globe-tooltip');
-  var domEvents = new THREEx.DomEvents(camera, renderer.domElement);
-  var markers = [];
-  sphereAndPoints.add(sphere);
-
-  window.points.forEach(function(point) {
-    var material = new THREE.MeshBasicMaterial({color: 0xFEE5AC});
-    var geom =  new THREE.SphereGeometry(0.009, 64, 64);
-    var marker = new THREE.Mesh(geom, material);
-    var pos = latLngToVector3(point.latlng[0], point.latlng[1], radius, 0);
-    marker.position.set(pos.x, pos.y, pos.z);
-    domEvents.addEventListener(marker, 'mouseover', function(e) {
-      // Stop rotation.
-      rotationSpeed = 0;
-      btnRotateElt.innerHTML = 'Rotate globe';
-
-      // Build tooltip.
-      var x = e.origDomEvent.clientX + 10;
-      var y = e.origDomEvent.clientY - 5;
-
-      globeTooltipElt.style.display = '';
-      globeTooltipElt.style.left = x + 'px';
-      globeTooltipElt.style.top = y + 'px';
-      var tip = point.name;
-      if (point.desc) {
-        tip += '<br><span>' + point.desc + '</span>';
-      }
-      if (point.img) {
-        tip += '<img src="' + point.img + '">';
-      }
-      globeTooltipElt.innerHTML = tip;
-    }, false);
-    domEvents.addEventListener(marker, 'mouseout', function(e) {
-      globeTooltipElt.style.display = 'none';
-    }, false);
-    sphereAndPoints.add(marker);
-    markers.push(marker);
-  });
-
-  var markersHidden = false;
-  btnToggleMarkers.onclick = function() {
-    markers.forEach(function(marker) {
-      if (markersHidden) {
-        sphereAndPoints.add(marker);
-      } else {
-        sphereAndPoints.remove(marker);
-      }
-    });
-    markersHidden = !markersHidden;
-    this.innerHTML = (markersHidden ? 'Show' : 'Hide') + ' markers';
-  };
-
   setupAtlasView();
 
   // Picture sidebar setup.
   setupPictureSidebar();
 
-  // Atmosphere.
+  // Lighting.
+  var lightsOn = false;
+  btnToggleLight.onclick = function() {
+    if (lightsOn) {
+      scene.remove(ambientLight);
+      this.innerHTML = 'Increase light';
+    } else {
+      scene.add(ambientLight);
+      this.innerHTML = 'Decrease light';
+    }
+    lightsOn = !lightsOn;
+  };
+
+  // Sun
+  setupSun();
+
+  // Final pluto object
+  scene.add(sphereAndPoints);
+
+  // Initialize the sphere texture.
+  if (window.location.hash == '#atlas') {
+    toggleAtlasView.apply(btnToggleMap);
+  } else {
+    step(false);
+  }
+
+  // Surface makers (must come after Pluto is set up).
+  setupSurfaceMarkers();
+
+  // Atmosphere (must go after Pluto is set up).
   var customMaterial = new THREE.ShaderMaterial({
     uniforms: {
       'c':   { type: 'f', value: 0.2 },
@@ -238,23 +185,7 @@
   atmosphere.scale.multiplyScalar(1.2);
   scene.add(atmosphere);
 
-  // Lighting.
-  var lightsOn = false;
-  btnToggleLight.onclick = function() {
-    if (lightsOn) {
-      scene.remove(ambientLight);
-      this.innerHTML = 'Increase light';
-    } else {
-      scene.add(ambientLight);
-      this.innerHTML = 'Decrease light';
-    }
-    lightsOn = !lightsOn;
-  };
-
-  // Sun
-  setupSun();
-
-  // Orbits.
+  // Other orbits.
   var charon;
   var hydra;
   var charonCalc;
@@ -289,13 +220,9 @@
   scene.add(clouds)
  */
 
-  // Final pluto object
-  scene.add(sphereAndPoints);
-
   // Stars
   var stars = createStars(90, 64);
   scene.add(stars);
-
 
   // Controls
   var controls = new THREE.OrbitControls(camera, webglEl);
@@ -482,8 +409,6 @@
     scene.add(sunObj);
   }
 
-  var showingAtlasView = false;
-  var atlasLight = new THREE.AmbientLight(0xffffff);
   function setupAtlasView() {
     btnToggleMap.onclick = toggleAtlasView;
   }
@@ -495,6 +420,7 @@
       this.innerHTML = 'Show atlas view';
 
       showingAtlasView = false;
+      mapIndex = maps.length;
       step(true);
     } else {
       loadTimestep(window.atlas_view);
@@ -507,13 +433,67 @@
       scene.remove(sunObj);
       scene.add(atlasLight);
 
-      if (!markersHidden) {
+      if (!surfaceMarkersHidden) {
         btnToggleMarkers.click();
       }
       rotationSpeed = 0;
       this.innerHTML = 'Hide atlas view';
       showingAtlasView = true;
     }
+  }
+
+  function setupSurfaceMarkers() {
+    // Surface markers
+    var globeTooltipElt = document.getElementById('globe-tooltip');
+    var domEvents = new THREEx.DomEvents(camera, renderer.domElement);
+    var markers = [];
+    sphereAndPoints.add(sphere);
+
+    window.points.forEach(function(point) {
+      var material = new THREE.MeshBasicMaterial({color: 0xFEE5AC});
+      var geom =  new THREE.SphereGeometry(0.009, 64, 64);
+      var marker = new THREE.Mesh(geom, material);
+      var pos = latLngToVector3(point.latlng[0], point.latlng[1], radius, 0);
+      marker.position.set(pos.x, pos.y, pos.z);
+      domEvents.addEventListener(marker, 'mouseover', function(e) {
+        // Stop rotation.
+        rotationSpeed = 0;
+        btnRotateElt.innerHTML = 'Rotate globe';
+
+        // Build tooltip.
+        var x = e.origDomEvent.clientX + 10;
+        var y = e.origDomEvent.clientY - 5;
+
+        globeTooltipElt.style.display = '';
+        globeTooltipElt.style.left = x + 'px';
+        globeTooltipElt.style.top = y + 'px';
+        var tip = point.name;
+        if (point.desc) {
+          tip += '<br><span>' + point.desc + '</span>';
+        }
+        if (point.img) {
+          tip += '<img src="' + point.img + '">';
+        }
+        globeTooltipElt.innerHTML = tip;
+      }, false);
+      domEvents.addEventListener(marker, 'mouseout', function(e) {
+        globeTooltipElt.style.display = 'none';
+      }, false);
+      sphereAndPoints.add(marker);
+      markers.push(marker);
+    });
+
+    btnToggleMarkers.onclick = function() {
+      markers.forEach(function(marker) {
+        if (surfaceMarkersHidden) {
+          sphereAndPoints.add(marker);
+        } else {
+          sphereAndPoints.remove(marker);
+        }
+      });
+      surfaceMarkersHidden = !surfaceMarkersHidden;
+      this.innerHTML = (surfaceMarkersHidden ? 'Show' : 'Hide') + ' markers';
+    };
   }
 
   function setupPictureSidebar() {
@@ -555,6 +535,38 @@
     }
     sphere.rotation.y = oldRotation;
     sphereAndPoints.add(sphere);
+  }
+
+  function step(forwards) {
+    if (forwards) {
+      mapIndex++;
+    } else {
+      mapIndex--;
+    }
+
+    mapIndex = Math.min(maps.length - 1, mapIndex);
+    mapIndex = Math.max(0, mapIndex);
+
+    document.getElementById('jump-to').value = mapIndex + '';
+
+    var timestep = maps[mapIndex];
+    loadTimestep(timestep);
+
+    if (mapIndex == maps.length - 1) {
+      btnNextElt.classList.add('inactive');
+      mapIndex = maps.length - 1;
+    } else {
+      btnNextElt.classList.remove('inactive');
+    }
+
+    if (mapIndex == 0) {
+      btnPrevElt.classList.add('inactive');
+      mapIndex = 0;
+    } else {
+      btnPrevElt.classList.remove('inactive');
+    }
+
+    clearSelection();   // Sometimes part of the page can be selected on fast click.
   }
 
   function getCurrentJED() {

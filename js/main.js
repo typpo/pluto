@@ -212,7 +212,7 @@
       var im = new Image();
       im.src = 'images/' + maps[i].path;
     }
-  }, 3000);
+  }, 5000);
 
   /*
     var clouds = createClouds(radius, segments);
@@ -235,7 +235,9 @@
 
   webglEl.appendChild(renderer.domElement);
 
-  populatePictures();
+  setTimeout(function() {
+    populatePictures();
+  }, 3000);
 
   render();
 

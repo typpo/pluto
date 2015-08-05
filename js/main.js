@@ -27,14 +27,25 @@
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(width, height);
 
+  var sunObj;
   var ambientLight = new THREE.AmbientLight(0x555555);
 
+  var btnToggleMap = document.getElementById('btn-toggle-map');
   var btnPrevElt = document.getElementById('btn-prev');
   var btnNextElt = document.getElementById('btn-next');
+  var btnPlayElt = document.getElementById('btn-play');
+  var btnPauseElt = document.getElementById('btn-pause');
+  var btnRotateElt = document.getElementById('btn-rotate');
+  var btnToggleMarkers = document.getElementById('btn-toggle-markers');
+  var btnToggleLight = document.getElementById('btn-toggle-light');
+  var btnTogglePictures = document.getElementById('btn-left-nav-toggle');
 
   var sphere;
   var mapIndex = maps.length;   // Start at the most recent.
   function step(forwards) {
+    if (showingAtlasView) {
+      toggleAtlasView.apply(btnToggleMap);
+    }
     if (forwards) {
       mapIndex++;
     } else {
@@ -48,24 +59,7 @@
 
     var timestep = maps[mapIndex];
 
-    // Details setup.
-    document.getElementById('mapped-by').innerHTML = timestep.mappedBy;
-    document.getElementById('mapped-when').innerHTML =
-      (isNaN(parseInt(timestep.date[0])) ? 'on' : 'in') + ' ' + timestep.date;
-    document.getElementById('credit').innerHTML = timestep.desc;
-
-    // Sphere setup.
-    var oldRotation = rotation;
-    if (sphere) {
-      oldRotation = sphere.rotation.y;
-      sphereAndPoints.remove(sphere);
-    }
-    sphere = createSphere(timestep.path, radius, segments);
-    if (mapIndex == maps.length) {
-      mapIndex = 0;
-    }
-    sphere.rotation.y = oldRotation;
-    sphereAndPoints.add(sphere);
+    loadTimestep(timestep);
 
     if (mapIndex == maps.length - 1) {
       btnNextElt.classList.add('inactive');
@@ -111,9 +105,6 @@
   };
 
   // Play/pause logic
-  var btnPlayElt = document.getElementById('btn-play');
-  var btnPauseElt = document.getElementById('btn-pause');
-
   var playInterval;
   btnPlayElt.onclick = function() {
     mapIndex = -1;
@@ -136,7 +127,6 @@
   };
 
   // Rotate logic
-  var btnRotateElt = document.getElementById('btn-rotate');
   var rotatingFast = false;
   btnRotateElt.onclick = function() {
     if (rotatingFast) {
@@ -210,7 +200,6 @@
     markers.push(marker);
   });
 
-  var btnToggleMarkers = document.getElementById('btn-toggle-markers');
   var markersHidden = false;
   btnToggleMarkers.onclick = function() {
     markers.forEach(function(marker) {
@@ -224,25 +213,10 @@
     this.innerHTML = (markersHidden ? 'Show' : 'Hide') + ' markers';
   };
 
+  setupAtlasView();
+
   // Picture sidebar setup.
-  var btnTogglePictures = document.getElementById('btn-left-nav-toggle');
-  var picturesShown = true;
-  btnTogglePictures.onclick = function() {
-    // Keep styles synced in main.css.
-    if (picturesShown) {
-      document.getElementById('left-nav').style.display = 'none';
-      document.getElementById('bottom-left').style.left = '40px';
-      btnTogglePictures.style.left = '0';
-      btnTogglePictures.style.width = '192px';
-    } else {
-      document.getElementById('left-nav').style.display = 'block';
-      document.getElementById('bottom-left').style.left = '240px';
-      btnTogglePictures.style.left = '162px';
-      btnTogglePictures.style.width = '30px';
-    }
-    picturesShown = !picturesShown;
-    this.innerHTML = picturesShown ? '-' : 'Show NASA pictures &#9660;';
-  };
+  setupPictureSidebar();
 
   // Atmosphere.
   var customMaterial = new THREE.ShaderMaterial({
@@ -265,9 +239,8 @@
   scene.add(atmosphere);
 
   // Lighting.
-  var increaseLightElt = document.getElementById('btn-increase-light');
   var lightsOn = false;
-  increaseLightElt.onclick = function() {
+  btnToggleLight.onclick = function() {
     if (lightsOn) {
       scene.remove(ambientLight);
       this.innerHTML = 'Increase light';
@@ -490,6 +463,7 @@
   }
 
   function setupSun() {
+    var sunlight = new THREE.DirectionalLight(0xffffff, 1);
     var texture = THREE.ImageUtils.loadTexture('images/sunsprite.png');
     var sprite = new THREE.Sprite(new THREE.SpriteMaterial({
       map: texture,
@@ -499,11 +473,88 @@
     }));
     sprite.scale.set(4, 4, 4);
     sprite.position.set(45, 6, 45);
-    scene.add(sprite);
 
-    var sunlight = new THREE.DirectionalLight(0xffffff, 1);
     sunlight.position.set(5, 3, 5);
-    scene.add(sunlight);
+
+    sunObj = new THREE.Object3D();
+    sunObj.add(sprite);
+    sunObj.add(sunlight);
+    scene.add(sunObj);
+  }
+
+  var showingAtlasView = false;
+  var atlasLight = new THREE.AmbientLight(0xffffff);
+  function setupAtlasView() {
+    btnToggleMap.onclick = toggleAtlasView;
+  }
+
+  function toggleAtlasView() {
+    if (showingAtlasView) {
+      scene.remove(atlasLight);
+      scene.add(sunObj);
+      this.innerHTML = 'Show atlas view';
+
+      showingAtlasView = false;
+      step(true);
+    } else {
+      loadTimestep(window.atlas_view);
+
+      if (lightsOn) {
+        // Counterintuitively, we turn the lights out because we add our own
+        // custom lighting.
+        btnToggleLight.click();
+      }
+      scene.remove(sunObj);
+      scene.add(atlasLight);
+
+      if (!markersHidden) {
+        btnToggleMarkers.click();
+      }
+      rotationSpeed = 0;
+      this.innerHTML = 'Hide atlas view';
+      showingAtlasView = true;
+    }
+  }
+
+  function setupPictureSidebar() {
+    var picturesShown = true;
+    btnTogglePictures.onclick = function() {
+      // Keep styles synced in main.css.
+      if (picturesShown) {
+        document.getElementById('left-nav').style.display = 'none';
+        document.getElementById('bottom-left').style.left = '40px';
+        btnTogglePictures.style.left = '0';
+        btnTogglePictures.style.width = '192px';
+      } else {
+        document.getElementById('left-nav').style.display = 'block';
+        document.getElementById('bottom-left').style.left = '240px';
+        btnTogglePictures.style.left = '162px';
+        btnTogglePictures.style.width = '30px';
+      }
+      picturesShown = !picturesShown;
+      this.innerHTML = picturesShown ? '-' : 'Show NASA pictures &#9660;';
+    };
+  }
+
+  function loadTimestep(timestep) {
+    // Details setup.
+    document.getElementById('mapped-by').innerHTML = timestep.mappedBy;
+    document.getElementById('mapped-when').innerHTML =
+      (isNaN(parseInt(timestep.date[0])) ? 'on' : 'in') + ' ' + timestep.date;
+    document.getElementById('credit').innerHTML = timestep.desc;
+
+    // Sphere setup.
+    var oldRotation = rotation;
+    if (sphere) {
+      oldRotation = sphere.rotation.y;
+      sphereAndPoints.remove(sphere);
+    }
+    sphere = createSphere(timestep.path, radius, segments);
+    if (mapIndex == maps.length) {
+      mapIndex = 0;
+    }
+    sphere.rotation.y = oldRotation;
+    sphereAndPoints.add(sphere);
   }
 
   function getCurrentJED() {

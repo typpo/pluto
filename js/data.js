@@ -94,14 +94,15 @@ window.maps = [
     path: 'pluto-bjorn-20150719-filled.png',
     date: 'July 19, 2015',
     desc: 'Texture courtesy of Björn Jónsson, images from NASA. Area around south pole added artificially.',
-  },
-  {
-    mappedBy: 'New Horizons',
-    path: 'pluto_informal_names_0728.jpg',
-    date: 'July 28, 2015',
-    desc: 'Texture courtesy of NASA.',
   }
 ];
+
+window.atlas_view  = {
+  mappedBy: 'New Horizons and SETI',
+  path: 'pluto_informal_names_0728.jpg',
+  date: 'July 28, 2015',
+  desc: 'Texture courtesy of NASA and the SETI Institute.',
+}
 
 window.points = [
   {

@@ -237,7 +237,7 @@
 
   setTimeout(function() {
     populatePictures();
-  }, 3000);
+  }, 2000);
 
   render();
 

@@ -68,6 +68,10 @@ a {
   margin-left: 5px;
 }
 
+#btn-toggle-map {
+  border: 1px solid #eee;
+}
+
 #btn-left-nav-toggle {
   position: absolute;
   top: 0;

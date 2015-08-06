@@ -533,7 +533,22 @@
       oldRotation = sphere.rotation.y;
       sphereAndPoints.remove(sphere);
     }
-    sphere = createSphere(timestep.path, radius, segments);
+    if (timestep.lowResPath) {
+      var im = new Image();
+      var loaded = false;
+      im.onload = function() {
+        loaded = true;
+        sphere.material.map =
+          THREE.ImageUtils.loadTexture('images/' + timestep.path);
+        sphere.material.needsUpdate = true;
+      };
+      im.src = 'images/' + timestep.path;
+      if (!loaded) {
+        sphere = createSphere(timestep.lowResPath, radius, segments);
+      }
+    } else {
+      sphere = createSphere(timestep.path, radius, segments);
+    }
     if (mapIndex == maps.length) {
       mapIndex = 0;
     }

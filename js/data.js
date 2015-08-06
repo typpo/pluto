@@ -100,6 +100,7 @@ window.maps = [
 window.atlas_view  = {
   mappedBy: 'New Horizons and SETI',
   path: 'pluto_informal_names_0728.jpg',
+  lowResPath: 'pluto_informal_names_0728-lowres.jpg',
   date: 'July 28, 2015',
   desc: 'Texture courtesy of NASA and the SETI Institute.',
 }

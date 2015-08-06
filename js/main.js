@@ -211,7 +211,6 @@
     preload.push.apply(preload, maps);
     for (var i=0; i < preload.length; i++) {
       if (!preload[i].path) continue;
-      console.log(preload[i].path);
       var im = new Image();
       im.src = 'images/' + preload[i].path;
     }

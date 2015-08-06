@@ -207,10 +207,13 @@
 
   // Preload textures
   setTimeout(function preloadTextures() {
-    for (var i=0; i < maps.length; i++) {
-      if (!maps[i].path) continue;
+    var preload = [window.atlas_view];
+    preload.push.apply(preload, maps);
+    for (var i=0; i < preload.length; i++) {
+      if (!preload[i].path) continue;
+      console.log(preload[i].path);
       var im = new Image();
-      im.src = 'images/' + maps[i].path;
+      im.src = 'images/' + preload[i].path;
     }
   }, 5000);
 

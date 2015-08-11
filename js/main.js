@@ -168,9 +168,9 @@
   // Atmosphere (must go after Pluto is set up).
   var customMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      'c':   { type: 'f', value: 0.2 },
+      'c':   { type: 'f', value: 0.35 },
       'p':   { type: 'f', value: 6 },
-      glowColor: { type: 'c', value: new THREE.Color(0xffffff) },
+      glowColor: { type: 'c', value: new THREE.Color(0x344152) },
       viewVector: { type: 'v3', value: camera.position }
     },
     vertexShader:   document.getElementById('atmosphere-vertex-shader').textContent,

@@ -219,7 +219,7 @@ ul.share-buttons img {
     font-size: 20px;
   }
 
-  #instructions, .social-container, #jump-to-container, #left-nav {
+  #instructions, .social-container, #jump-to-container, #left-nav, #btn-left-nav-toggle {
     display: none;
   }
 

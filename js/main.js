@@ -345,7 +345,8 @@
     var leftNav = document.getElementById('left-nav');
     window.pictures.forEach(function(picture) {
       var pictureElement = document.createElement('img');
-      pictureElement.src = '//wit.wurfl.io/w_180/' + picture.url;
+      pictureElement.src = picture.url.replace('nasa.gov', 'nasa.gov.rsz.io')
+          .replace('https:', 'http:');
       pictureElement.className = 'left-nav-image';
       pictureElement.setAttribute('width', 180);
 

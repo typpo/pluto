@@ -346,7 +346,7 @@
     window.pictures.forEach(function(picture) {
       var pictureElement = document.createElement('img');
       pictureElement.src = picture.url.replace('nasa.gov', 'nasa.gov.rsz.io')
-          .replace('https:', 'http:');
+                              .replace('https:', 'http:') + '?width=180';
       pictureElement.className = 'left-nav-image';
       pictureElement.setAttribute('width', 180);
 
